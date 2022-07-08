@@ -1,0 +1,249 @@
+
+cd ~
+
+groups student
+
+sudo usermod -aG docker $USER
+
+groups student
+
+sudo su - $USER
+
+sudo apt install -y golang
+
+go version
+
+mkdir greeter
+
+cd greeter
+
+cat <<EOF > hello.go
+package main
+import "fmt"
+func main() {
+    fmt.Println("Hello, World!")
+}
+EOF
+
+go run hello.go
+
+go mod init greeter
+
+go build
+ls
+
+./greeter
+
+cd ~
+
+git clone https://github.com/alta3/webby.git
+
+cd ~/webby
+
+export GO111MODULE="on"
+
+go get -u github.com/stripe/stripe-go/v72
+
+go get .
+
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o webserver .
+
+                       +------------>
+           Load your files into a scratch container
+              +---------------------------------+
+              |                                 |
+              |                                 |
++-------------+--------------+       +----------v---------+
+| All the "webby" files in:  |       |                    |
+| ~/go/src/github.com/webby/*|       | Scratch Container  |
+|                            |       |                    |
++----------------------------+       +--------------------+
+   Your working web server!            A scratch container
+                                      is empty (zero bytes!)
+
+
+cp ~/mycode/config/Dockerfile .
+
+batcat Dockerfile
+
+========================================
+#filename
+FROM scratch
+
+#name of the binary (image)
+ADD webserver /
+
+#add a directory
+ADD deploy /deploy/
+
+#there can only be one CMD in a Dockerfile
+CMD ["/webserver"]
+
+# port that the container will listen on
+EXPOSE 8888
+========================================
+
+sudo docker build -t webby -f Dockerfile .
+
+
+Sending build context to Docker daemon    258MB
+Step 1/5 : FROM scratch
+ ---> 
+Step 2/5 : ADD webserver /
+ ---> ae076e08a34d
+Step 3/5 : ADD deploy /deploy/
+ ---> 01d62e9ad503
+Step 4/5 : CMD ["/webserver"]
+ ---> Running in 7a6080a0d6b2
+Removing intermediate container 7a6080a0d6b2
+ ---> 56e14f7fc894
+Step 5/5 : EXPOSE 8888
+ ---> Running in 339d6179f2e0
+Removing intermediate container 339d6179f2e0
+ ---> 03e6b74d7c12
+Successfully built 03e6b74d7c12
+Successfully tagged webby:latest
+
+                                     Run the scratch container
+                                             locally
++----------------------------+       +--------------------+
+| All the "webby" files in:  |       |                    |
+| ~/go/src/github.com/webby/*|       | Scratch Container  |
+|                            |       |                    |
++----------------------------+       +--------------------+
+   Your working web server!          http://172.16.1.4:8888/
+                                                ^
+                                                |
+                                                +
+                                             TESTING
+
+
+
+sudo docker run -p 2224:8888 --name mywebby -d webby
+
+cd ~
+curl localhost:2224
+
+
+sudo docker ps -a
+CONTAINER ID    IMAGE     COMMAND         CREATED              STATUS              PORTS                    NAMES
+b63ccb7ee966    webby     "/webserver"    About a minute ago   Up About a minute   0.0.0.0:2224->8888/tcp   mywebby
+
+sudo docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+webby               latest              cadec56e4f74        2 minutes ago         93.2 MB
+
+docker --version
+
+                           +------------>
+   Upload your container to a registry that K8s trusts
+                        +---------------------+
+                        |                     |
++----------+   +--------+----------+   +------v-------+
+|  Local   |   | Scratch Container |   | bchd.registry|
+|  Webby   |   |  With Webby Files |   |   Registry   |
+|  Files   |   |      Loaded       |   |              |
++----------+   +-------------------+   +--------------+
+
+
+sudo docker run -d -p 2345:5000 registry:2
+
+
+sudo sed -i '/127.0.0.1/!b;/bchd.registry/!s/$/ bchd.registry/' /etc/hosts
+
+127.0.0.1 localhost bchd.registry
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhost
+
+
+sudo cp ~/mycode/config/bchd.registry /etc/nginx/sites-enabled/reg && batcat ~/mycode/config/bchd.registry && batcat /etc/nginx/sites-enabled/reg
+
+server {
+    listen bchd.registry;
+    client_max_body_size 100M;
+
+    location / {
+        proxy_pass http://127.0.0.1:2345;
+        }
+    }
+
+sudo nginx -s reload
+
+sudo docker tag webby bchd.registry/webby
+
+sudo docker push bchd.registry/webby
+
+The push refers to repository [bchd.registry/webby]
+a58c1cd5ebb3: Pushed
+feec4fa54ecc: Pushed
+latest: digest: sha256:70b7f523e5e160758811c6c306ab385f604ba5119f9c99cb6429cdb786522c80 size: 740
+
+
+sudo docker image ls
+
+REPOSITORY                     TAG       IMAGE ID       CREATED         SIZE
+webby                          latest    9360b4b7f426   9 minutes ago   94MB
+bchd.registry/webby            latest    9360b4b7f426   9 minutes ago   94MB
+registry                       2         b8604a3fe854   2 days ago      26.2MB
+
+sudo docker stop mywebby
+
+CHALLENGE
+
+cd ~/go/src/github.com/alta3/hello
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o welcome .
+
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o welcome .
+
+./welcome
+
+vim scratch
+
+#filename
+FROM scratch
+
+#name of the binary (image)
+ADD welcome /
+
+#there can only be one CMD in a dockerfile
+CMD ["/welcome"]
+
+
+sudo docker build -t welcome -f scratch .
+
+sudo docker run -it welcome
+
+
+Challenge 02
+
+cd ~/go/src/github.com/webby
+
+vim scratch
+
+========================================
+#filename
+FROM scratch
+
+#name of the binary (image)
+ADD webserver /
+
+#add a directory
+ADD deploy /deploy/
+
+#there can only be one CMD in a dockerfile
+CMD ["/webserver"]
+
+# port that the container will listen on
+EXPOSE 8385
+========================================
+
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o webserver .
+sudo docker build -t webby:1.1 -f scratch .
+sudo docker run -p 2224:8385 -it webby:1.1
+

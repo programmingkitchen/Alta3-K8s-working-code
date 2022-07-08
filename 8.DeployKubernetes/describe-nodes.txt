@@ -1,0 +1,156 @@
+Name:               node-1
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=node-1
+                    kubernetes.io/os=linux
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 05 Jul 2022 23:03:27 +0000
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  node-1
+  AcquireTime:     <unset>
+  RenewTime:       Tue, 05 Jul 2022 23:06:31 +0000
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Tue, 05 Jul 2022 23:03:55 +0000   Tue, 05 Jul 2022 23:03:55 +0000   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:27 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:27 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:27 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:37 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  10.12.109.41
+  Hostname:    node-1
+Capacity:
+  cpu:                2
+  ephemeral-storage:  20717452Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             4019884Ki
+  pods:               110
+Allocatable:
+  cpu:                2
+  ephemeral-storage:  19093203732
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             3917484Ki
+  pods:               110
+System Info:
+  Machine ID:                 5f8b264d3c5c4bc0a6a5088721d85b98
+  System UUID:                5f8b264d3c5c4bc0a6a5088721d85b98
+  Boot ID:                    4840dbb1-62ae-40f0-b123-dd38a669615b
+  Kernel Version:             5.15.0-27-generic
+  OS Image:                   Ubuntu 22.04 LTS
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.6.1
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+Non-terminated Pods:          (2 in total)
+  Namespace                   Name                         CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                         ------------  ----------  ---------------  -------------  ---
+  kube-system                 calico-node-29qvz            250m (12%)    0 (0%)      0 (0%)           0 (0%)         2m59s
+  kube-system                 kube-dns-688c69f57d-sxqx4    260m (13%)    0 (0%)      110Mi (2%)       170Mi (4%)     2m42s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                510m (25%)  0 (0%)
+  memory             110Mi (2%)  170Mi (4%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+Events:
+  Type     Reason                   Age                    From        Message
+  ----     ------                   ----                   ----        -------
+  Normal   Starting                 3m4s                   kube-proxy  
+  Warning  InvalidDiskCapacity      3m10s                  kubelet     invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  3m10s (x2 over 3m10s)  kubelet     Node node-1 status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    3m10s (x2 over 3m10s)  kubelet     Node node-1 status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     3m10s (x2 over 3m10s)  kubelet     Node node-1 status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  3m10s                  kubelet     Updated Node Allocatable limit across pods
+  Normal   Starting                 3m10s                  kubelet     Starting kubelet.
+  Normal   NodeReady                3m                     kubelet     Node node-1 status is now: NodeReady
+
+
+Name:               node-2
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=node-2
+                    kubernetes.io/os=linux
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 05 Jul 2022 23:03:27 +0000
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  node-2
+  AcquireTime:     <unset>
+  RenewTime:       Tue, 05 Jul 2022 23:06:31 +0000
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Tue, 05 Jul 2022 23:03:59 +0000   Tue, 05 Jul 2022 23:03:59 +0000   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:27 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:27 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:27 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Tue, 05 Jul 2022 23:04:28 +0000   Tue, 05 Jul 2022 23:03:37 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+Addresses:
+  InternalIP:  10.1.255.101
+  Hostname:    node-2
+Capacity:
+  cpu:                2
+  ephemeral-storage:  20717452Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             4019884Ki
+  pods:               110
+Allocatable:
+  cpu:                2
+  ephemeral-storage:  19093203732
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             3917484Ki
+  pods:               110
+System Info:
+  Machine ID:                 af85df01ecc24faab2516d87d94dcdc1
+  System UUID:                af85df01ecc24faab2516d87d94dcdc1
+  Boot ID:                    4f749e7d-23a8-47b1-bb13-f36168616901
+  Kernel Version:             5.15.0-27-generic
+  OS Image:                   Ubuntu 22.04 LTS
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.6.1
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+Non-terminated Pods:          (2 in total)
+  Namespace                   Name                                        CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                        ------------  ----------  ---------------  -------------  ---
+  kube-system                 calico-kube-controllers-659fb845bc-6dszj    0 (0%)        0 (0%)      0 (0%)           0 (0%)         2m59s
+  kube-system                 calico-node-k22nf                           250m (12%)    0 (0%)      0 (0%)           0 (0%)         2m59s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                250m (12%)  0 (0%)
+  memory             0 (0%)      0 (0%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+Events:
+  Type     Reason                   Age                    From        Message
+  ----     ------                   ----                   ----        -------
+  Normal   Starting                 3m4s                   kube-proxy  
+  Warning  InvalidDiskCapacity      3m10s                  kubelet     invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  3m10s (x2 over 3m10s)  kubelet     Node node-2 status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    3m10s (x2 over 3m10s)  kubelet     Node node-2 status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     3m10s (x2 over 3m10s)  kubelet     Node node-2 status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  3m10s                  kubelet     Updated Node Allocatable limit across pods
+  Normal   Starting                 3m10s                  kubelet     Starting kubelet.
+  Normal   NodeReady                3m                     kubelet     Node node-2 status is now: NodeReady
