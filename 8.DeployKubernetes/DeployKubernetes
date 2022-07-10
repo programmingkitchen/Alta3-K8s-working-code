@@ -1,0 +1,65 @@
+
++--------------------+    +--------------------+     +--------------------+
+| Beachhead          |    | Controller         |     | Node-1             |
+| bchd               |    |                    |     |                    |
+|                    |    |                    |     |                    |
+|                    |    |                    |     |                    |
++--------------------+    +--------------------+     +--------------------+
+
+                                                     +--------------------+
+                                                     | Node-2             |
+                                                     |                    |
+                                                     |                    |
+                                                     |                    |
+                                                     +--------------------+
+
+
+
+These are /12
+Host range is 10.0.0.1 to 10.15.255.254
+
+beachhead
+10.8.164.230
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ fping -A controller  node-1 node-2 
+10.8.161.61 is alive
+10.14.182.253 is alive
+10.9.227.239 is alive
+
+Before
+student@bchd:~/git/kubernetes-the-alta3-way$ ls
+CHANGELOG.md     README.md     ansible.cfg       group_vars    hosts.yml  main.yml                   roles
+CKAD_outline.md  SMOKETEST.md  conformance.yaml  hosts-ha.yml  labs       nginx-nfs-example.yaml.j2  teardown.yml
+
+
+student@bchd:~/git/kubernetes-the-alta3-way$ ls -l | wc -l
+15
+
+
+ansible-playbook main.yml
+
+
+student@bchd:~/git/kubernetes-the-alta3-way$ ls -lrt | wc -l
+16
+
+student@bchd:~/git/kubernetes-the-alta3-way$ ls -lrt
+total 124
+-rw-rw-r--  1 student student   924 Jul  7 15:06 hosts.yml
+-rw-rw-r--  1 student student   866 Jul  7 15:06 hosts-ha.yml
+drwxrwxr-x  2 student student  4096 Jul  7 15:06 group_vars
+-rw-rw-r--  1 student student   746 Jul  7 15:06 conformance.yaml
+-rw-rw-r--  1 student student   162 Jul  7 15:06 ansible.cfg
+-rw-rw-r--  1 student student  2317 Jul  7 15:06 SMOKETEST.md
+-rw-rw-r--  1 student student  2465 Jul  7 15:06 README.md
+-rw-rw-r--  1 student student   639 Jul  7 15:06 CKAD_outline.md
+-rw-rw-r--  1 student student 11096 Jul  7 15:06 CHANGELOG.md
+drwxrwxr-x  9 student student  4096 Jul  7 15:06 labs
+-rw-rw-r--  1 student student   987 Jul  7 15:06 nginx-nfs-example.yaml.j2
+-rw-rw-r--  1 student student   856 Jul  7 15:06 main.yml
+drwxrwxr-x 13 student student  4096 Jul  7 15:06 roles
+-rw-rw-r--  1 student student  4736 Jul  7 15:06 teardown.yml
+-rw-rw-r--  1 student student 52640 Jul 10 22:39 ansible.log
+
+
+
+
