@@ -428,21 +428,62 @@ student@bchd:~$
 +----------+   +-------------------+   +--------------+
 
 
-STOP 7/10/22
-
-
-
-
-
-
-
-
 
 
 sudo docker run -d -p 2345:5000 registry:2
 
+student@bchd:~$ sudo docker run -d -p 2345:5000 registry:2
+Unable to find image 'registry:2' locally
+2: Pulling from library/registry
+2408cc74d12b: Pull complete 
+ea60b727a1ce: Pull complete 
+c87369050336: Pull complete 
+e69d20d3dd20: Pull complete 
+fc30d7061437: Pull complete 
+Digest: sha256:bedef0f1d248508fe0a16d2cacea1d2e68e899b2220e2258f1b604e1f327d475
+Status: Downloaded newer image for registry:2
+48793d233a80ce5d468e7c022f92c36b392a6b3692ccbc0cb78fe433b30eb6d0
+student@bchd:~$ 
+
+
+We get a new image and a container that is running the registry
+ 
+
+student@bchd:~$ docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+webby        latest    5c14412b7f0a   4 hours ago   93.5MB
+registry     2         773dbf02e42e   6 weeks ago   24.1MB
+student@bchd:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+48793d233a80   registry:2   "/entrypoint.sh /etc…"   30 seconds ago   Up 29 seconds   0.0.0.0:2345->5000/tcp, :::2345->5000/tcp   relaxed_chatterjee
+9d390388373f   webby        "/webserver"             4 hours ago      Up 4 hours      0.0.0.0:2224->8888/tcp, :::2224->8888/tcp   mywebby
+
+
+
+This adds bchd.registry to the right of localhost on the first line. If already there, it will NOT add it again.
 
 sudo sed -i '/127.0.0.1/!b;/bchd.registry/!s/$/ bchd.registry/' /etc/hosts
+
+Real example
+student@bchd:~$ sudo diff /etc/hosts /etc/hosts.orig
+1c1
+< 127.0.0.1 localhost bchd.registry
+---
+> 127.0.0.1 localhost
+student@bchd:~$ cat /etc/hosts
+127.0.0.1 localhost bchd.registry
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+student@bchd:~$ 
+
+
+Example from the lab
 
 127.0.0.1 localhost bchd.registry
 
@@ -457,6 +498,27 @@ ff02::3 ip6-allhost
 
 sudo cp ~/mycode/config/bchd.registry /etc/nginx/sites-enabled/reg && batcat ~/mycode/config/bchd.registry && batcat /etc/nginx/sites-enabled/reg
 
+Before
+student@bchd:/etc/nginx/sites-enabled$ ls
+default
+
+After
+student@bchd:/etc/nginx/sites-enabled$ ls -l
+total 8
+-rw-r--r-- 1 root root 231 Jul  7 15:04 default
+-rw-r--r-- 1 root root 142 Jul 10 20:20 reg
+student@bchd:/etc/nginx/sites-enabled$ cat reg
+server {
+    listen bchd.registry;
+    client_max_body_size 100M;
+
+    location / {
+        proxy_pass http://127.0.0.1:2345;
+        }
+    }
+
+
+
 server {
     listen bchd.registry;
     client_max_body_size 100M;
@@ -468,10 +530,55 @@ server {
 
 sudo nginx -s reload
 
+Tag your new image with the FQDN of bchd.registry. 
+This will make the push of your image go directly to your registry that is hosted on bchd.registry.
+
 sudo docker tag webby bchd.registry/webby
+
+
+student@bchd:~$ docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+webby        latest    5c14412b7f0a   4 hours ago   93.5MB
+registry     2         773dbf02e42e   6 weeks ago   24.1MB
+
+student@bchd:~$ sudo docker tag webby bchd.registry/webby
+
+student@bchd:~$ docker image ls
+REPOSITORY            TAG       IMAGE ID       CREATED       SIZE
+bchd.registry/webby   latest    5c14412b7f0a   4 hours ago   93.5MB
+webby                 latest    5c14412b7f0a   4 hours ago   93.5MB
+registry              2         773dbf02e42e   6 weeks ago   24.1MB
+student@bchd:~$ 
+
+No changes to container with tag. 
+student@bchd:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+48793d233a80   registry:2   "/entrypoint.sh /etc…"   10 minutes ago   Up 10 minutes   0.0.0.0:2345->5000/tcp, :::2345->5000/tcp   relaxed_chatterjee
+9d390388373f   webby        "/webserver"             4 hours ago      Up 4 hours      0.0.0.0:2224->8888/tcp, :::2224->8888/tcp   mywebby
+
+student@bchd:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+48793d233a80   registry:2   "/entrypoint.sh /etc…"   11 minutes ago   Up 11 minutes   0.0.0.0:2345->5000/tcp, :::2345->5000/tcp   relaxed_chatterjee
+9d390388373f   webby        "/webserver"             4 hours ago      Up 4 hours      0.0.0.0:2224->8888/tcp, :::2224->8888/tcp   mywebby
+
+
 
 sudo docker push bchd.registry/webby
 
+
+My real output
+student@bchd:~$ sudo docker push bchd.registry/webby
+Using default tag: latest
+The push refers to repository [bchd.registry/webby]
+e5ab2708b1e3: Pushed 
+efd5d6bf84f4: Pushed 
+latest: digest: sha256:5a1005b8eb13cb89d8a11293bc7c042af0b4c69f39c12e9439e896f9efa37940 size: 740
+student@bchd:~$ 
+
+
+
+
+Lab doc
 The push refers to repository [bchd.registry/webby]
 a58c1cd5ebb3: Pushed
 feec4fa54ecc: Pushed
@@ -480,12 +587,39 @@ latest: digest: sha256:70b7f523e5e160758811c6c306ab385f604ba5119f9c99cb6429cdb78
 
 sudo docker image ls
 
+
+student@bchd:~$ docker image ls
+REPOSITORY            TAG       IMAGE ID       CREATED       SIZE
+bchd.registry/webby   latest    5c14412b7f0a   4 hours ago   93.5MB
+webby                 latest    5c14412b7f0a   4 hours ago   93.5MB
+registry              2         773dbf02e42e   6 weeks ago   24.1MB
+
+
+
 REPOSITORY                     TAG       IMAGE ID       CREATED         SIZE
 webby                          latest    9360b4b7f426   9 minutes ago   94MB
 bchd.registry/webby            latest    9360b4b7f426   9 minutes ago   94MB
 registry                       2         b8604a3fe854   2 days ago      26.2MB
 
 sudo docker stop mywebby
+
+
+student@bchd:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+48793d233a80   registry:2   "/entrypoint.sh /etc…"   14 minutes ago   Up 14 minutes   0.0.0.0:2345->5000/tcp, :::2345->5000/tcp   relaxed_chatterjee
+9d390388373f   webby        "/webserver"             4 hours ago      Up 4 hours      0.0.0.0:2224->8888/tcp, :::2224->8888/tcp   mywebby
+
+
+student@bchd:~$ sudo docker stop mywebby 
+mywebby
+student@bchd:~$ docker container ls
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+48793d233a80   registry:2   "/entrypoint.sh /etc…"   14 minutes ago   Up 14 minutes   0.0.0.0:2345->5000/tcp, :::2345->5000/tcp   relaxed_chatterjee
+student@bchd:~$ 
+
+
+
+
 
 CHALLENGE
 
