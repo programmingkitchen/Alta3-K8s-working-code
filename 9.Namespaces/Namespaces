@@ -35,3 +35,30 @@ No resource quota.
 
 No LimitRange resource.
 student@bchd:~$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ batcat test-ns.yaml 
+───────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: test-ns.yaml
+───────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1   │ ---
+   2   │ apiVersion: v1    # from kubernetes.io/docs
+   3   │ kind: Namespace   # type of resource to be created
+   4   │ metadata:
+   5   │   name: test      # name to associate with this namespace
+───────┴─────────────────────────────────────────────────────────────────────
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ cat test-ns.yaml
+---
+apiVersion: v1    # from kubernetes.io/docs
+kind: Namespace   # type of resource to be created
+metadata:
+  name: test      # name to associate with this namespace
+
+
+
+
+
+
+
