@@ -1,0 +1,37 @@
+
+Script (setup)
+
+setup isolating-resources-with-kubernetes-namespaces
+
+
+student@bchd:~$ which setup
+/home/student/.local/bin/setup
+
+student@bchd:~$ echo $PATH
+/home/student/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+ setup -> /home/student/git/kubernetes-the-alta3-way/labs/setup/setup
+
+student@bchd:~$ setup isolating-resources-with-kubernetes-namespaces
+[+] Cleaning cluster
+[+] Preparing isolating-resources-with-kubernetes-namespaces
+[+] Setup complete
+student@bchd:~$ 
+
+student@bchd:~$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   168m
+kube-node-lease   Active   169m
+kube-public       Active   169m
+kube-system       Active   169m
+
+student@bchd:~$ kubectl describe namespace default
+Name:         default
+Labels:       kubernetes.io/metadata.name=default
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.
+student@bchd:~$ 
