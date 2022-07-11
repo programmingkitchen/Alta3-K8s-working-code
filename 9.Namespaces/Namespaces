@@ -58,6 +58,115 @@ metadata:
 
 
 
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl create -f test-ns.yaml 
+namespace/test created
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   14h
+kube-node-lease   Active   14h
+kube-public       Active   14h
+kube-system       Active   14h
+test              Active   22s
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl describe namespaces test
+Name:         test
+Labels:       kubernetes.io/metadata.name=test
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl create ns dev
+namespace/dev created
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl get ns
+NAME              STATUS   AGE
+default           Active   14h
+dev               Active   6s
+kube-node-lease   Active   14h
+kube-public       Active   14h
+kube-system       Active   14h
+test              Active   2m13s
+
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl apply -f prod-ns.yaml 
+namespace/prod created
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl get ns
+NAME              STATUS   AGE
+default           Active   14h
+dev               Active   80s
+kube-node-lease   Active   14h
+kube-public       Active   14h
+kube-system       Active   14h
+prod              Active   4s
+test              Active   3m27s
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ cat rq-tiny.yaml 
+---
+apiVersion: v1           # from kubernetes.io/docs
+kind: ResourceQuota      # kubernetes resource to be created
+metadata:
+  name: tiny-rq          # name of ResourceQuota
+spec:
+  hard:                  # "may not exceed"
+    cpu: "1"             # 1 cpu is == 1 vcore on a hypervisor or 1 hyperthread on bare metal
+    memory: 1Gi          # 1 gig of memory
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ 
+
+
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl describe namespace test
+Name:         test
+Labels:       kubernetes.io/metadata.name=test
+Annotations:  <none>
+Status:       Active
+
+Resource Quotas
+  Name:     tiny-rq
+  Resource  Used  Hard
+  --------  ---   ---
+  cpu       0     1
+  memory    0     1Gi
+
+No LimitRange resource.
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   14h
+dev               Active   6m10s
+kube-node-lease   Active   14h
+kube-public       Active   14h
+kube-system       Active   14h
+prod              Active   4m54s
+test              Active   8m17s
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl apply -f ~/mycode/yaml/rq-tiny.yaml -n dev
+resourcequota/tiny-rq created
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl describe namespace dev
+Name:         dev
+Labels:       kubernetes.io/metadata.name=dev
+Annotations:  <none>
+Status:       Active
+
+Resource Quotas
+  Name:     tiny-rq
+  Resource  Used  Hard
+  --------  ---   ---
+  cpu       0     1
+  memory    0     1Gi
+
+No LimitRange resource.
 
 
 
