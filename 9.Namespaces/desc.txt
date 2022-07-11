@@ -1,0 +1,8 @@
+Name:         test
+Labels:       kubernetes.io/metadata.name=test
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.

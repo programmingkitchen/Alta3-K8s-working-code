@@ -1,0 +1,13 @@
+Name:         test
+Labels:       kubernetes.io/metadata.name=test
+Annotations:  <none>
+Status:       Active
+
+Resource Quotas
+  Name:     tiny-rq
+  Resource  Used  Hard
+  --------  ---   ---
+  cpu       0     1
+  memory    0     1Gi
+
+No LimitRange resource.
