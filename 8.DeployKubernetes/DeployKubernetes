@@ -62,4 +62,24 @@ drwxrwxr-x 13 student student  4096 Jul  7 15:06 roles
 
 
 
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
+
+source ~/.bashrc
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ cat my_first_pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myfirstpod
+spec:
+  containers:
+  - name: webster
+    image: registry.gitlab.com/alta3research/webby:latest
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ kubectl apply -f my_first_pod.yaml 
+pod/myfirstpod created
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ kubectl wait --for condition=Ready --timeout 30s pod/myfirstpod
+pod/myfirstpod condition met
 
