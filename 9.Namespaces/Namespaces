@@ -169,5 +169,110 @@ Resource Quotas
 No LimitRange resource.
 
 
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ cp ~/mycode/yaml/prod-rq.yaml .
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ ls
+Namespaces  desc-rs.txt  desc.txt  prod-ns.yaml  prod-rq.yaml  rq-tiny.yaml  test-ns.yaml
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ cat prod-ns.yaml
+---
+apiVersion: v1    # from kubernetes.io/docs
+kind: Namespace   # type of resource to be created
+metadata:
+  name: prod      # name to associate with this namespace
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ 
+[ttyd] 0:bash*                                                          
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl apply -f ~/mycode/yaml/prod-rq.yaml --namespace=prod
+resourcequota/prod-resourcequota created
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl describe namespace dev prod
+Name:         dev
+Labels:       kubernetes.io/metadata.name=dev
+Annotations:  <none>
+Status:       Active
+
+Resource Quotas
+  Name:     tiny-rq
+  Resource  Used  Hard
+  --------  ---   ---
+  cpu       0     1
+  memory    0     1Gi
+
+No LimitRange resource.
+
+
+Name:         prod
+Labels:       kubernetes.io/metadata.name=prod
+Annotations:  <none>
+Status:       Active
+
+Resource Quotas
+  Name:     prod-resourcequota
+  Resource  Used  Hard
+  --------  ---   ---
+  cpu       0     2
+  memory    0     2Gi
+
+No LimitRange resource.
+
+
+Remove resource quotas
+So far working with Kubernetes seems easy. However, it is
+critical that we remove the resource quotas we just put in place. 
+Looking ahead, it will cause an issue with launching Pods later on. Remove the resource quota on the namespace test.
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl delete -f ~/mycode/yaml/rq-tiny.yaml --namespace=dev
+resourcequota "tiny-rq" deleted
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl delete -f ~/mycode/yaml/prod-rq.yaml --namespace=prod
+resourcequota "prod-resourcequota" deleted
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ kubectl describe namespace test dev prod
+Name:         test
+Labels:       kubernetes.io/metadata.name=test
+Annotations:  <none>
+Status:       Active
+
+Resource Quotas
+  Name:     tiny-rq
+  Resource  Used  Hard
+  --------  ---   ---
+  cpu       0     1
+  memory    0     1Gi
+
+No LimitRange resource.
+
+
+Name:         dev
+Labels:       kubernetes.io/metadata.name=dev
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.
+
+
+Name:         prod
+Labels:       kubernetes.io/metadata.name=prod
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.
+student@bchd:~/my-repos/Alta3-K8s-working-code/9.Namespaces$ 
+
+
+
+
+
+
+
+
+
+
+
 
 
