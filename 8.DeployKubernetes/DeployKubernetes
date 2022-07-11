@@ -83,3 +83,32 @@ pod/myfirstpod created
 student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ kubectl wait --for condition=Ready --timeout 30s pod/myfirstpod
 pod/myfirstpod condition met
 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ kubectl get pods
+NAME         READY   STATUS    RESTARTS   AGE
+myfirstpod   1/1     Running   0          2m26s
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ kubectl delete -f my_first_pod.yaml 
+pod "myfirstpod" deleted
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/8.DeployKubernetes$ kubectl get pods
+No resources found in default namespace.
+
+
+
+
+Click for Code to Catch Up!
+
+{ # Deploy Kubernetes using Ansible
+pushd $HOME/git/kubernetes-the-alta3-way
+ansible-playbook main.yml
+popd
+kubectl get nodes
+kubectl apply -f "${HOME}/mycode/yaml/my_first_pod.yaml"
+kubectl wait --for condition=Ready --timeout 30s pod/myfirstpod
+kubectl get pods
+kubectl delete -f "${HOME}/mycode/yaml/my_first_pod.yaml"
+} || echo "Execution stopped, see above error"
+
+
