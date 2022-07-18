@@ -201,9 +201,115 @@ CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMES
           kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      
 student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context kubernetes-the-alta3-way --namespace=default
 Context "kubernetes-the-alta3-way" modified.
-student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contextsCURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
 *         dev-context                kubernetes-the-alta3-way   admin      dev
           kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
+CHALLENGE: Add two more contexts, one for test, and the other for prod
+
+Hint: Here is the command that created dev, so you can modify it to create test and prod
+
+kubectl config set-context dev-context --namespace=dev --user=admin --cluster=kubernetes-the-alta3-way
+
+
+kubectl config set-context test-context --namespace=test --user=admin --cluster=kubernetes-the-alta3-way
+kubectl config set-context prod-context --namespace=prod --user=admin --cluster=kubernetes-the-alta3-way
+
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context test-context --namespace=test --user=admin --cluster=kubernetes-the-alta3-way
+Context "test-context" created.
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         dev-context                kubernetes-the-alta3-way   admin      dev
+          kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          test-context               kubernetes-the-alta3-way   admin      test
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context prod-context --namespace=prod --user=admin --cluster=kubernetes-the-alta3-way
+Context "prod-context" created.
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubect get namespaces
+kubect: command not found
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   8d
+dev               Active   7d10h
+kube-node-lease   Active   8d
+kube-public       Active   8d
+kube-system       Active   8d
+prod              Active   7d10h
+test              Active   7d10h
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         dev-context                kubernetes-the-alta3-way   admin      dev
+          kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          prod-context               kubernetes-the-alta3-way   admin      prod
+          test-context               kubernetes-the-alta3-way   admin      test
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
+Take another look at your Kubernetes configuration. Notice that now you have 
+four unique context names under the contexts: section.
+
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://127.0.0.1:6443
+  name: kubernetes-the-alta3-way
+contexts:
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: dev
+    user: admin
+  name: dev-context
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: default
+    user: admin
+  name: kubernetes-the-alta3-way
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: prod
+    user: admin
+  name: prod-context
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: test
+    user: admin
+  name: test-context
+current-context: dev-context
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    client-certificate: /home/student/k8s-certs/admin.pem
+    client-key: /home/student/k8s-certs/admin-key.pem
+
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         dev-context                kubernetes-the-alta3-way   admin      dev
+          kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          prod-context               kubernetes-the-alta3-way   admin      prod
+          test-context               kubernetes-the-alta3-way   admin      test
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config use-context kubernetes-the-alta3-way
+Switched to context "kubernetes-the-alta3-way".
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contextsCURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+          dev-context                kubernetes-the-alta3-way   admin      dev
+*         kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          prod-context               kubernetes-the-alta3-way   admin      prod
+          test-context               kubernetes-the-alta3-way   admin      test
 student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
 
 
