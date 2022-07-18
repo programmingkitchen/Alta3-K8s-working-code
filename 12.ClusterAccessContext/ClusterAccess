@@ -1,0 +1,97 @@
+
+
+This would be a problem if you needed to get this running today, so continue reading about service accounts.
+
+In contrast, service accounts are users managed by the Kubernetes API. They are bound to specific namespaces, and are created automatically by the API server or manually through API calls. Service accounts are tied to a set of credentials stored as Secrets, which are mounted into pods allowing in-cluster processes to talk to the Kubernetes API.
+
+API requests are tied to either a normal user or a service account, or are treated as anonymous requests. This means every process inside or outside the cluster, from a human user typing kubectl on a workstation, to kubelets on nodes, to members of the control plane, must authenticate when making requests to the API server, or be treated as an anonymous user.
+
+The service account in place right now is admin and so we'll use that one.
+
+
+What is the difference between a namespace and a context?
+A namespace is a logical division of a cluster. It may be limited by its own unique set of resource or network restraints. Common namespaces include, "test", "dev", and "prod". A context is a reference to a specific cluster and namespace. Once created, a context may then be selected, which will default all the users commands into the cluster and namespace associated with the context.
+
+How many contexts should you have in your Kubernetes cluster?
+To prevent accidentally issuing commands within wrong clusters or namespaces, a context should be created for each cluster and namespace therein.
+
+
+kubectl config use-context kubernetes-the-alta3-way
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://127.0.0.1:6443
+  name: kubernetes-the-alta3-way
+contexts:
+- context:
+    cluster: kubernetes-the-alta3-way
+    user: admin
+  name: kubernetes-the-alta3-way
+current-context: kubernetes-the-alta3-way
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    client-certificate: /home/student/k8s-certs/admin.pem
+    client-key: /home/student/k8s-certs/admin-key.pem
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+Complete cert listing is in a file in directory 12
+
+student@bchd:~/k8s-certs$ ls -l | more
+total 132
+-rw------- 1 student student 1675 Jul 10 22:35 admin-key.pem
+lrwxrwxrwx 1 student student   33 Jul 10 22:36 admin.crt -> /home/student/k8s-certs/admin.pem
+-rw-r--r-- 1 student student 1045 Jul 10 22:35 admin.csr
+lrwxrwxrwx 1 student student   37 Jul 10 22:36 admin.key -> /home/student/k8s-certs/admin-key.pem
+-rw-rw-r-- 1 student student 1452 Jul 10 22:35 admin.pem
+-rw------- 1 student student 1679 Jul 10 22:35 ca-key.pem
+lrwxrwxrwx 1 student student   30 Jul 10 22:36 ca.crt -> /home/student/k8s-certs/ca.pem
+-rw-r--r-- 1 student student 1017 Jul 10 22:35 ca.csr
+lrwxrwxrwx 1 student student   34 Jul 10 22:36 ca.key -> /home/student/k8s-certs/ca-key.pem
+-rw-rw-r-- 1 student student 1338 Jul 10 22:35 ca.pem
+-rw------- 1 student student 1679 Jul 10 22:35 front-proxy-client-key.pem
+lrwxrwxrwx 1 student student   46 Jul 10 22:36 front-proxy-client.crt -> /home/student/k8s-certs/front-proxy-clien
+t.pem
+-rw-r--r-- 1 student student 1029 Jul 10 22:35 front-proxy-client.csr
+lrwxrwxrwx 1 student student   50 Jul 10 22:36 front-proxy-client.key -> /home/student/k8s-certs/front-proxy-clien
+t-key.pem
+-rw-rw-r-- 1 student student 1436 Jul 10 22:35 front-proxy-client.pem
+-rw------- 1 student student 1679 Jul 10 22:35 kube-controller-manager-key.pem
+lrwxrwxrwx 1 student student   51 Jul 10 22:36 kube-controller-manager.crt -> /home/student/k8s-certs/kube-control
+ler-manager.pem
+-rw-r--r-- 1 student student 1102 Jul 10 22:35 kube-controller-manager.csr
+lrwxrwxrwx 1 student student   55 Jul 10 22:36 kube-controller-manager.key -> /home/student/k8s-certs/kube-control
+ler-manager-key.pem
+-rw-rw-r-- 1 student student 1509 Jul 10 22:35 kube-controller-manager.pem
+-rw------- 1 student student 1679 Jul 10 22:35 kube-proxy-key.pem
+lrwxrwxrwx 1 student student   38 Jul 10 22:36 kube-proxy.crt -> /home/student/k8s-certs/kube-proxy.pem
+-rw-r--r-- 1 student student 1070 Jul 10 22:35 kube-proxy.csr
+lrwxrwxrwx 1 student student   42 Jul 10 22:36 kube-proxy.key -> /home/student/k8s-certs/kube-proxy-key.pem
+-rw-rw-r-- 1 student student 1476 Jul 10 22:35 kube-proxy.pem
+-rw------- 1 student student 1675 Jul 10 22:35 kube-scheduler-key.pem
+lrwxrwxrwx 1 student student   42 Jul 10 22:36 kube-scheduler.crt -> /home/student/k8s-certs/kube-scheduler.pem
+-rw-r--r-- 1 student student 1078 Jul 10 22:35 kube-scheduler.csr
+lrwxrwxrwx 1 student student   46 Jul 10 22:36 kube-scheduler.key -> /home/student/k8s-certs/kube-scheduler-key.pe
+m
+-rw-rw-r-- 1 student student 1484 Jul 10 22:35 kube-scheduler.pem
+-rw------- 1 student student 1679 Jul 10 22:35 kubernetes-key.pem
+lrwxrwxrwx 1 student student   38 Jul 10 22:36 kubernetes.crt -> /home/student/k8s-certs/kubernetes.pem
+-rw-r--r-- 1 student student 1151 Jul 10 22:35 kubernetes.csr
+lrwxrwxrwx 1 student student   42 Jul 10 22:36 kubernetes.key -> /home/student/k8s-certs/kubernetes-key.pem
+-rw-rw-r-- 1 student student 1537 Jul 10 22:35 kubernetes.pem
+-rw------- 1 student student 1675 Jul 10 22:35 node-1-key.pem
+-rw-r--r-- 1 student student 1139 Jul 10 22:35 node-1.csr
+-rw-rw-r-- 1 student student 1525 Jul 10 22:35 node-1.pem
+-rw------- 1 student student 1675 Jul 10 22:36 node-2-key.pem
+-rw-r--r-- 1 student student 1139 Jul 10 22:36 node-2.csr
+-rw-rw-r-- 1 student student 1525 Jul 10 22:36 node-2.pem
+-rw------- 1 student student 1675 Jul 10 22:35 registry-web-key.pem
+lrwxrwxrwx 1 student student   40 Jul 10 22:36 registry-web.crt -> /home/student/k8s-certs/registry-web.pem
+--More--
+
