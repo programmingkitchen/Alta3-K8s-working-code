@@ -1,0 +1,35 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://127.0.0.1:6443
+  name: kubernetes-the-alta3-way
+contexts:
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: dev
+    user: admin
+  name: dev-context
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: default
+    user: admin
+  name: kubernetes-the-alta3-way
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: prod
+    user: admin
+  name: prod-context
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: test
+    user: admin
+  name: test-context
+current-context: dev-context
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    client-certificate: /home/student/k8s-certs/admin.pem
+    client-key: /home/student/k8s-certs/admin-key.pem
