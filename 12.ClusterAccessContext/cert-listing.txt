@@ -1,0 +1,52 @@
+total 132
+-rw------- 1 student student 1675 Jul 10 22:35 admin-key.pem
+lrwxrwxrwx 1 student student   33 Jul 10 22:36 admin.crt -> /home/student/k8s-certs/admin.pem
+-rw-r--r-- 1 student student 1045 Jul 10 22:35 admin.csr
+lrwxrwxrwx 1 student student   37 Jul 10 22:36 admin.key -> /home/student/k8s-certs/admin-key.pem
+-rw-rw-r-- 1 student student 1452 Jul 10 22:35 admin.pem
+-rw------- 1 student student 1679 Jul 10 22:35 ca-key.pem
+lrwxrwxrwx 1 student student   30 Jul 10 22:36 ca.crt -> /home/student/k8s-certs/ca.pem
+-rw-r--r-- 1 student student 1017 Jul 10 22:35 ca.csr
+lrwxrwxrwx 1 student student   34 Jul 10 22:36 ca.key -> /home/student/k8s-certs/ca-key.pem
+-rw-rw-r-- 1 student student 1338 Jul 10 22:35 ca.pem
+-rw------- 1 student student 1679 Jul 10 22:35 front-proxy-client-key.pem
+lrwxrwxrwx 1 student student   46 Jul 10 22:36 front-proxy-client.crt -> /home/student/k8s-certs/front-proxy-client.pem
+-rw-r--r-- 1 student student 1029 Jul 10 22:35 front-proxy-client.csr
+lrwxrwxrwx 1 student student   50 Jul 10 22:36 front-proxy-client.key -> /home/student/k8s-certs/front-proxy-client-key.pem
+-rw-rw-r-- 1 student student 1436 Jul 10 22:35 front-proxy-client.pem
+-rw------- 1 student student 1679 Jul 10 22:35 kube-controller-manager-key.pem
+lrwxrwxrwx 1 student student   51 Jul 10 22:36 kube-controller-manager.crt -> /home/student/k8s-certs/kube-controller-manager.pem
+-rw-r--r-- 1 student student 1102 Jul 10 22:35 kube-controller-manager.csr
+lrwxrwxrwx 1 student student   55 Jul 10 22:36 kube-controller-manager.key -> /home/student/k8s-certs/kube-controller-manager-key.pem
+-rw-rw-r-- 1 student student 1509 Jul 10 22:35 kube-controller-manager.pem
+-rw------- 1 student student 1679 Jul 10 22:35 kube-proxy-key.pem
+lrwxrwxrwx 1 student student   38 Jul 10 22:36 kube-proxy.crt -> /home/student/k8s-certs/kube-proxy.pem
+-rw-r--r-- 1 student student 1070 Jul 10 22:35 kube-proxy.csr
+lrwxrwxrwx 1 student student   42 Jul 10 22:36 kube-proxy.key -> /home/student/k8s-certs/kube-proxy-key.pem
+-rw-rw-r-- 1 student student 1476 Jul 10 22:35 kube-proxy.pem
+-rw------- 1 student student 1675 Jul 10 22:35 kube-scheduler-key.pem
+lrwxrwxrwx 1 student student   42 Jul 10 22:36 kube-scheduler.crt -> /home/student/k8s-certs/kube-scheduler.pem
+-rw-r--r-- 1 student student 1078 Jul 10 22:35 kube-scheduler.csr
+lrwxrwxrwx 1 student student   46 Jul 10 22:36 kube-scheduler.key -> /home/student/k8s-certs/kube-scheduler-key.pem
+-rw-rw-r-- 1 student student 1484 Jul 10 22:35 kube-scheduler.pem
+-rw------- 1 student student 1679 Jul 10 22:35 kubernetes-key.pem
+lrwxrwxrwx 1 student student   38 Jul 10 22:36 kubernetes.crt -> /home/student/k8s-certs/kubernetes.pem
+-rw-r--r-- 1 student student 1151 Jul 10 22:35 kubernetes.csr
+lrwxrwxrwx 1 student student   42 Jul 10 22:36 kubernetes.key -> /home/student/k8s-certs/kubernetes-key.pem
+-rw-rw-r-- 1 student student 1537 Jul 10 22:35 kubernetes.pem
+-rw------- 1 student student 1675 Jul 10 22:35 node-1-key.pem
+-rw-r--r-- 1 student student 1139 Jul 10 22:35 node-1.csr
+-rw-rw-r-- 1 student student 1525 Jul 10 22:35 node-1.pem
+-rw------- 1 student student 1675 Jul 10 22:36 node-2-key.pem
+-rw-r--r-- 1 student student 1139 Jul 10 22:36 node-2.csr
+-rw-rw-r-- 1 student student 1525 Jul 10 22:36 node-2.pem
+-rw------- 1 student student 1675 Jul 10 22:35 registry-web-key.pem
+lrwxrwxrwx 1 student student   40 Jul 10 22:36 registry-web.crt -> /home/student/k8s-certs/registry-web.pem
+-rw-r--r-- 1 student student 1078 Jul 10 22:35 registry-web.csr
+lrwxrwxrwx 1 student student   44 Jul 10 22:36 registry-web.key -> /home/student/k8s-certs/registry-web-key.pem
+-rw-rw-r-- 1 student student 1464 Jul 10 22:35 registry-web.pem
+-rw------- 1 student student 1679 Jul 10 22:35 service-account-key.pem
+lrwxrwxrwx 1 student student   43 Jul 10 22:36 service-account.crt -> /home/student/k8s-certs/service-account.pem
+-rw-r--r-- 1 student student 1054 Jul 10 22:35 service-account.csr
+lrwxrwxrwx 1 student student   47 Jul 10 22:36 service-account.key -> /home/student/k8s-certs/service-account-key.pem
+-rw-rw-r-- 1 student student 1460 Jul 10 22:35 service-account.pem
