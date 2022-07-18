@@ -95,3 +95,115 @@ lrwxrwxrwx 1 student student   42 Jul 10 22:36 kubernetes.key -> /home/student/k
 lrwxrwxrwx 1 student student   40 Jul 10 22:36 registry-web.crt -> /home/student/k8s-certs/registry-web.pem
 --More--
 
+
+
+You are running the kubernetes-the-alta3-way context, which means that you are the user admin. This allows you full access to the cluster, as well as full rights to create, update, and delete resources.
+
+
+student@bchd:~/.kube$ cat config
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURzRENDQXBpZ0F3SUJBZ0lVWG9tTFl5ZExvbWdlUWVJZ1UzQ2k2cnVjdHZvd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2NERUxNQWtHQTFVRUJoTUNWVk14RlRBVEJnTlZCQWdUREZCbGJtNXplV3gyWVc1cFlURVRNQkVHQTFVRQpCeE1LU0dGeWNtbHpZblZ5WnpFVE1CRUdBMVVFQ2hNS1MzVmlaWEp1WlhSbGN6RUxNQWtHQTFVRUN4TUNRMEV4CkV6QVJCZ05WQkFNVENrdDFZbVZ5Ym1WMFpYTXdIaGNOTWpJd056RXdNakl6TVRBd1doY05NamN3TnpBNU1qSXoKTVRBd1dqQndNUXN3Q1FZRFZRUUdFd0pWVXpFVk1CTUdBMVVFQ0JNTVVHVnVibk41YkhaaGJtbGhNUk13RVFZRApWUVFIRXdwSVlYSnlhWE5pZFhKbk1STXdFUVlEVlFRS0V3cExkV0psY201bGRHVnpNUXN3Q1FZRFZRUUxFd0pEClFURVRNQkVHQTFVRUF4TUtTM1ZpWlhKdVpYUmxjekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0MKQVFvQ2dnRUJBTUZhRTl6M0FNZXE1ZzFuTlNhQi85Mm54NEdPS0U5cExOM3VwVnk5cVQ3enZqMmExUU9wc2MrdgpzaVBKUm11cnEyeWNadjN6WFZzNFN4U0lTTEM2RkF3THc4UEJJNGMrUUtqQnJDUzZvSmZGVUZhUEtRc0lxejUzCkNiQWx3WlM4MXFsUWJ6NXBKb2t6TERGck9hekE3ZEVUTy9BYlhNVm5uaWtQTUF5Ly9Fc2lUZkFJbjVEY2ZIbm4KM1JmbllPMXpUQ01yQlRMUmFsY0l3RjNiVkI3eXBWRkdxS0FJR2tuSVh0WkdpV0Z3L1MzVExLNkxOMTVrcEVGZQpsTlpreHUxZjRDU0RvZWllU0gyMlJuZG5MNWRuOWZ6dmxtRElNeTNvdVlmUEE3aEEvSEgwcWFlbzdFMnZ5aGF4CmpXampoVE5rN0dZYklkbUVkbmZsTllRaHh6Mm82UUVDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnRUcKTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkJBbmFPTDJuT08wRUVCdWhEcndyazNXZ3AzVApNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUFiazdYUks3Q2NTVTQ5ZnJFT0lCMHFkajBvR3MxMWlVSkpta1hwCkx2Rldjd0VoeDh0SC9WNytPNzJUT0VmckVGM3M1NEhaT0FZRHlheHdrMVh6blFUM2ZSUG1UeWhnOFpYd1djclYKRXZSY29zTzl4VFhZaGF4VVNnY0FGeTFQTEpORUlJS0dxTTZNRGs4V3pMdlZFLzE4YUx3bWl3ZGM4eERGTDBFdApleWVMWGVvQWdCakpHY3Y4Y3UxSUlaZG9ZSzN4MDFNYmFEdnpiblJLV0tQV0hpeWVIQ2hOM2VqLzBjeFRPb2R0CkpxWjhpZEY0ZERpMlJISkx6N2I5OC83YlZOK3ArN3JYYzJzNWxjelBtS1pMZ0JNeS83Qkk5N2M4ak9wL2hYeVUKd3c4ZmNrYXE0Y0Z4NnFoQVRMUjV4Y0FDbjdPOC9sSlZnWVNqYmwyK1ZJUTVYUTlHCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    server: https://127.0.0.1:6443
+  name: kubernetes-the-alta3-way
+contexts:
+- context:
+    cluster: kubernetes-the-alta3-way
+    user: admin
+  name: kubernetes-the-alta3-way
+current-context: kubernetes-the-alta3-way
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    client-certificate: /home/student/k8s-certs/admin.pem
+    client-key: /home/student/k8s-certs/admin-key.pem
+student@bchd:~/.kube$ 
+
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context dev-context --namespace=dev
+Context "dev-context" created.
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config use-context dev-context
+Switched to context "dev-context".
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
+
+BEFORE
+
+kubectl config view --minify
+apiVersion: v1
+clusters: null
+contexts:
+- context:
+    cluster: ""
+    namespace: dev
+    user: ""
+  name: dev-context
+current-context: dev-context
+kind: Config
+preferences: {}
+users: null
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
+The display shows that the dev-context is lacking some definition. The missing values include, clusters, contexts[0].context.cluster, users, and contexts[0].context.user. In short, we're missing a username (who) and cluster (where) definitions.
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context dev-context --namespace=dev --user=admin --cluster=kubernetes-the-alta3-way
+Context "dev-context" modified.
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://127.0.0.1:6443
+  name: kubernetes-the-alta3-way
+contexts:
+- context:
+    cluster: kubernetes-the-alta3-way
+    namespace: dev
+    user: admin
+  name: dev-context
+- context:
+    cluster: kubernetes-the-alta3-way
+    user: admin
+  name: kubernetes-the-alta3-way
+current-context: dev-context
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    client-certificate: /home/student/k8s-certs/admin.pem
+    client-key: /home/student/k8s-certs/admin-key.pem
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         dev-context                kubernetes-the-alta3-way   admin      dev
+          kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
+Notice that the kubernetes-the-alta3-way context does not have an associated namespace. Remember, we can set (or update) a context's namespace with the config set-context command. Let's try setting the kubernetes-the-alta3-way context to default, rather than leaving it blank.
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         dev-context                kubernetes-the-alta3-way   admin      dev
+          kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context kubernetes-the-alta3-way --namespace=default
+Context "kubernetes-the-alta3-way" modified.
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config get-contextsCURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         dev-context                kubernetes-the-alta3-way   admin      dev
+          kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
+
+
