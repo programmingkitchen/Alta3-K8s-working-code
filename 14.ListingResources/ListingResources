@@ -1,0 +1,126 @@
+Listing Resources with kubectl get
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ which setup
+/home/student/.local/bin/setup
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ setup listing-resources-with-kubectl-get
+[+] Cleaning cluster
+[+] Preparing listing-resources-with-kubectl-get
+[+] Setup complete
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          prod-context               kubernetes-the-alta3-way   admin      prod
+          test-context               kubernetes-the-alta3-way   admin      test
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl config use-context kubernetes-the-alta3-way
+Switched to context "kubernetes-the-alta3-way".
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          prod-context               kubernetes-the-alta3-way   admin      prod
+          test-context               kubernetes-the-alta3-way   admin      test
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   172.16.3.1   <none>        443/TCP   8d
+
+
+The returned output doesn't quite match. We are missing a node and instead of two coredns, we ahve a kube-dns.
+We only have two nodes and this build did not make the dns highly available. 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods --all-namespaces
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0          8d
+kube-system   calico-node-7cnhv                          1/1     Running   0          8d
+kube-system   calico-node-jzmm4                          1/1     Running   0          8d
+kube-system   kube-dns-688c69f57d-2szjw                  3/3     Running   0          8d
+
+From notes
+ NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+ kube-system   calico-kube-controllers-7798c85854-dbfvh   1/1     Running   0          25h
+ kube-system   calico-node-8thjn                          1/1     Running   0          25h
+ kube-system   calico-node-hfcj8                          1/1     Running   0          25h
+ kube-system   calico-node-jrqrg                          1/1     Running   0          25h
+ kube-system   coredns-5d65dd49c8-67rgd                   1/1     Running   0          25h
+ kube-system   coredns-5d65dd49c8-jmgcj                   1/1     Running   0          25h
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods --all-namespaces -o wide
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE   IP               NODE     NOMINATED NODE   READINESS GATES
+kube-system   calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0          8d    10.9.227.239     node-2   <none>           <none>
+kube-system   calico-node-7cnhv                          1/1     Running   0          8d    10.9.227.239     node-2   <none>           <none>
+kube-system   calico-node-jzmm4                          1/1     Running   0          8d    10.14.182.253    node-1   <none>           <none>
+kube-system   kube-dns-688c69f57d-2szjw                  3/3     Running   0          8d    192.168.84.129   node-1   <none>           <none>
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get services --all-namespaces
+NAMESPACE     NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)         AGE
+default       kubernetes   ClusterIP   172.16.3.1    <none>        443/TCP         8d
+kube-system   kube-dns     ClusterIP   172.16.3.10   <none>        53/UDP,53/TCP   8d
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get all --all-namespaces
+NAMESPACE     NAME                                           READY   STATUS    RESTARTS   AGE
+kube-system   pod/calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0          8d
+kube-system   pod/calico-node-7cnhv                          1/1     Running   0          8d
+kube-system   pod/calico-node-jzmm4                          1/1     Running   0          8d
+kube-system   pod/kube-dns-688c69f57d-2szjw                  3/3     Running   0          8d
+
+NAMESPACE     NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)         AGE
+default       service/kubernetes   ClusterIP   172.16.3.1    <none>        443/TCP         8d
+kube-system   service/kube-dns     ClusterIP   172.16.3.10   <none>        53/UDP,53/TCP   8d
+
+NAMESPACE     NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+kube-system   daemonset.apps/calico-node   2         2         2       2            2           kubernetes.io/os=linux   8d
+
+NAMESPACE     NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/calico-kube-controllers   1/1     1            1           8d
+kube-system   deployment.apps/kube-dns                  1/1     1            1           8d
+
+NAMESPACE     NAME                                                 DESIRED   CURRENT   READY   AGE
+kube-system   replicaset.apps/calico-kube-controllers-659fb845bc   1         1         1       8d
+kube-system   replicaset.apps/kube-dns-688c69f57d                  1         1         1       8d
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get all --all-namespaces | grep calico-kube-controllers
+kube-system   pod/calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0          8d
+kube-system   deployment.apps/calico-kube-controllers   1/1     1            1           8d
+kube-system   replicaset.apps/calico-kube-controllers-659fb845bc   1         1         1       8d
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get secrets
+NAME                  TYPE                                  DATA   AGE
+default-token-n79bt   kubernetes.io/service-account-token   3      8d
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+CHALLENGE:
+
+Write kubectl get commands that would output the following info:
+
+all Pods in the kube-system namespace!
+all Pods in the entire cluster that have the word dns in their name!
+all Pods on node-3, but output also includes the Pods' IP addresses!
+
+flag	description
+-o=custom-columns=<spec>	Print a table using a comma separated list of custom columns
+-o=custom-columns-file=<filename>	Print a table using the custom columns template in the <filename> file
+-o=json	Output a JSON formatted API object
+-o=jsonpath=<template>	Print the fields defined in a jsonpath expression
+-o=jsonpath-file=<filename>	Print the fields defined by the jsonpath expression in the <filename> file
+-o=name	Print only the resource name and nothing else
+-o=wide	Output in the plain-text format with any additional info and for pods, the node name is included
+-o=yaml	Output a YAML formatted API object
+
+
