@@ -28,3 +28,69 @@ Examining Resources with kubectl describe
                                +--------------------------------|--------------------------------+
 
 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ setup examining-resources-with-kubectl-describe
+[+] Cleaning cluster
+[+] Preparing examining-resources-with-kubectl-describe
+[+] Setup complete
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl config get-contexts
+CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMESPACE
+*         kubernetes-the-alta3-way   kubernetes-the-alta3-way   admin      default
+          prod-context               kubernetes-the-alta3-way   admin      prod
+          test-context               kubernetes-the-alta3-way   admin      test
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+We have an image in Gitlab registry
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods
+No resources found in default namespace.
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl run --port=8888 --image=registry.gitlab.com/alta3research/webby:latest webweb
+pod/webweb created
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pod
+NAME     READY   STATUS    RESTARTS   AGE
+webweb   1/1     Running   0          12s
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+The NAME of the pod in this example is webweb. If we had launched as a deployment, there would be extra characters after webweb, called a pod-suffix, and indicate this pod is part of a replica set. Ex: webweb-577bdbc675-l8926
+
+
+See the detailed description.
+
+
+FORWARD FROM PORT 2224 TO 8888 
+kubectl port-forward webweb 2224:8888 --address 0.0.0.0
+
+
+curl localhost:2224
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResource│
+s$ kubectl describe pod webweb | grep IP                           │
+IP:           192.168.247.2                                        │
+IPs:                                                               │
+  IP:  192.168.247.2                                               │
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResource│
+s$                                 
+
+This was after I stopped the port forwarding
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ curl localhost:2224
+curl: (7) Failed to connect to localhost port 2224 after 0 ms: Connection refused
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl describe pod webweb | grep IP
+IP:           192.168.247.2
+IPs:
+  IP:  192.168.247.2
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ 
+
+
+
+
+
+
