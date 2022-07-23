@@ -1,0 +1,50 @@
+Name:         webweb
+Namespace:    default
+Priority:     0
+Node:         node-2/10.9.227.239
+Start Time:   Sat, 23 Jul 2022 14:14:46 +0000
+Labels:       run=webweb
+Annotations:  <none>
+Status:       Running
+IP:           192.168.247.2
+IPs:
+  IP:  192.168.247.2
+Containers:
+  webweb:
+    Container ID:   containerd://cfcadd7ad46210424452db417e0563786274846fbda5eaebaa148bf6444afe50
+    Image:          registry.gitlab.com/alta3research/webby:latest
+    Image ID:       registry.gitlab.com/alta3research/webby@sha256:81218eb064047a9cb458f689d4a437d6090a2099d0a5099990a9c60a915ebd51
+    Port:           8888/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 23 Jul 2022 14:14:47 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-84sk9 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-84sk9:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  106s  default-scheduler  Successfully assigned default/webweb to node-2
+  Normal  Pulling    106s  kubelet            Pulling image "registry.gitlab.com/alta3research/webby:latest"
+  Normal  Pulled     105s  kubelet            Successfully pulled image "registry.gitlab.com/alta3research/webby:latest" in 388.285751ms
+  Normal  Created    105s  kubelet            Created container webweb
+  Normal  Started    105s  kubelet            Started container webweb
