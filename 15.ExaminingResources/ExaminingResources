@@ -38,14 +38,6 @@ student@bchd:~/my-repos/Alta3-K8s-working-code$ setup examining-resources-with-k
 ~/git/kubernetes-the-alta3-way/labs/setup
 
 
-
-
-
-
-
-
-
-
 student@bchd:~/my-repos/Alta3-K8s-working-code$ 
 
 student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl config get-contexts
@@ -138,4 +130,9 @@ student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$
 student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl apply -f ~/mycode/yaml/webweb-deploy.yaml
 deployment.apps/webweb created
 
-
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl get pods
+NAME                      READY   STATUS    RESTARTS   AGE
+webweb                    1/1     Running   0          7h24m
+webweb-65c59dfd85-49f86   1/1     Running   0          7m4s
+webweb-65c59dfd85-75vpv   1/1     Running   0          7m4s
+webweb-65c59dfd85-xpq4z   1/1     Running   0          7m4s
