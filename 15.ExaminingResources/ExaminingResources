@@ -136,3 +136,70 @@ webweb                    1/1     Running   0          7h24m
 webweb-65c59dfd85-49f86   1/1     Running   0          7m4s
 webweb-65c59dfd85-75vpv   1/1     Running   0          7m4s
 webweb-65c59dfd85-xpq4z   1/1     Running   0          7m4s
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl get deployments
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+webweb   3/3     3            3           10m
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ 
+
+21. The first step in this lab had you use the kubectl run command in order to 
+create a Kubernetes resource- in our case, a pod. Now use kubectl delete to remove the pod webweb.
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl delete pod webweb
+pod "webweb" deleted
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl get pod
+NAME                      READY   STATUS    RESTARTS   AGE
+webweb-65c59dfd85-49f86   1/1     Running   0          12m
+webweb-65c59dfd85-75vpv   1/1     Running   0          12m
+webweb-65c59dfd85-xpq4z   1/1     Running   0          12m
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ 
+
+
+kubectl describe (-f FILENAME \| TYPE [NAME_PREFIX \| /NAME \| -l label]) [flags]
+
+kubectl describe (-f FILENAME \| TYPE [NAME_PREFIX \| /NAME \| -l label]) [flags]
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   172.16.3.1   <none>        443/TCP   13d
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl describe services
+Name:              kubernetes
+Namespace:         default
+Labels:            component=apiserver
+                   provider=kubernetes
+Annotations:       <none>
+Selector:          <none>
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                172.16.3.1
+IPs:               172.16.3.1
+Port:              https  443/TCP
+TargetPort:        6443/TCP
+Endpoints:         10.8.161.61:6443
+Session Affinity:  None
+Events:            <none>
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ 
+
+
+kubectl describe pods
+
+kubectl describe nodes 
+
+kubectl describe nodes node-1
+
+29. Delete our webweb deployment.
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl get deployments
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+webweb   3/3     3            3           140m
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl delete deployment webweb
+deployment.apps "webweb" deleted
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ kubectl get deployments
+No resources found in default namespace.
+student@bchd:~/my-repos/Alta3-K8s-working-code/15.ExaminingResources$ 
+
+
