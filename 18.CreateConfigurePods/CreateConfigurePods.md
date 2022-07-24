@@ -153,4 +153,28 @@ Events:
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
 
 
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl apply -f webby.yaml 
+pod/myweb01 created
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+myweb01         1/1     Running   0          27s
+simpleservice   1/1     Running   0          72m
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+myweb01         1/1     Running   0          2m8s
+simpleservice   1/1     Running   0          74m
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl delete -f webby.yaml 
+pod "myweb01" deleted
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl delete -f simpleservice.yaml 
+pod "simpleservice" deleted
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl get pods
+No resources found in default namespace.
+student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
