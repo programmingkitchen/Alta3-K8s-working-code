@@ -29,6 +29,8 @@ set -euo pipefail
 **This also starts a log**
 
 There is a weird teardown log created with lots of files.
+
+```
 student@bchd:/tmp/teardown.create-and-configure-basic-pods.gZ7n$
 
 
@@ -57,6 +59,11 @@ student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods/create-and
 #!/bin/bash
 set -euo pipefail
 
+
+```
+
+
+```
 kubectl config use-context kubernetes-the-alta3-way
 
 
@@ -68,6 +75,9 @@ CURRENT   NAME                       CLUSTER                    AUTHINFO   NAMES
           prod-context               kubernetes-the-alta3-way   admin      prod
           test-context               kubernetes-the-alta3-way   admin      test
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
+
+```
+
 
 A pod manifest must contain certain keys. Since this is YAML, these keys can be in any order, but the classic approach is alphabetical order- this approach is convenient because alphabetical order makes sense for reading the values.
 
@@ -82,10 +92,13 @@ metadata: A required key that helps uniquely identify the object. Subkeys are na
 spec: Specifies the desired state of an object. If a spec is deleted, the object will be purged from the system.
 status: PURELY FYI - A system generated value that shows the actual state of the object at the current time.
 
+```
 kubectl api-resources
+```
 
 ## Simple Service Empty
 
+```
 vim ~/mycode/yaml/simpleservice-empty.yaml
 
 
@@ -97,7 +110,9 @@ student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl g
 NAME            READY   STATUS    RESTARTS   AGE
 simpleservice   1/1     Running   0          75s
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
+```
 
+```
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl describe pod simpleservice 
 Name:         simpleservice
 Namespace:    default
@@ -150,8 +165,10 @@ Events:
   Normal  Created    86s   kubelet            Created container simpleservice-web
   Normal  Started    86s   kubelet            Started container simpleservice-web
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
+```
 
 
+```
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl apply -f webby.yaml 
 pod/myweb01 created
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
@@ -177,3 +194,4 @@ student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ kubectl get pods
 No resources found in default namespace.
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ 
+```
