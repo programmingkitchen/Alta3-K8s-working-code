@@ -1,0 +1,50 @@
+Name:         myweb01
+Namespace:    default
+Priority:     0
+Node:         node-2/10.9.227.239
+Start Time:   Sun, 24 Jul 2022 15:35:14 +0000
+Labels:       <none>
+Annotations:  <none>
+Status:       Running
+IP:           192.168.247.6
+IPs:
+  IP:  192.168.247.6
+Containers:
+  myweb01-web:
+    Container ID:   containerd://c735f7169f4b3c03abbbc4abcc5348036fc348d72a84b25eedb5ebdf53248b94
+    Image:          registry.gitlab.com/alta3research/webby
+    Image ID:       registry.gitlab.com/alta3research/webby@sha256:81218eb064047a9cb458f689d4a437d6090a2099d0a5099990a9c60a915ebd51
+    Port:           8888/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 24 Jul 2022 15:35:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hjbpv (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-hjbpv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  76s   default-scheduler  Successfully assigned default/myweb01 to node-2
+  Normal  Pulling    75s   kubelet            Pulling image "registry.gitlab.com/alta3research/webby"
+  Normal  Pulled     75s   kubelet            Successfully pulled image "registry.gitlab.com/alta3research/webby" in 366.203615ms
+  Normal  Created    75s   kubelet            Created container myweb01-web
+  Normal  Started    75s   kubelet            Started container myweb01-web
