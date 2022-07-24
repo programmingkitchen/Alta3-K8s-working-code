@@ -77,13 +77,6 @@ git branch
 git branch -r
 ```
 
-**Examine the branches (local and remote)**
-```
-git branch
-git branch -r
-```
-
-
 **Look at local merged and unmerged**
 It looks like when there are commited changes in another branch, then it will show up in no-merged.
 
@@ -114,15 +107,11 @@ git checkout develop
 git add *
 ```
 
-**Commit to the new branch**
+**Commit or commit to the new branch**
 ```
 git commit -m 'Fix some stuff'
 ```
 
-**Commit**
-```
-git commit -m "my comment"
-```
 
 **Merge with the local master (optional)**
 This would be if we wanted to make changes in a local branch but push to the master
