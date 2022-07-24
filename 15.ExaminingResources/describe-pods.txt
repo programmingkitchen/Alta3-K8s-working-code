@@ -1,0 +1,139 @@
+Name:         webweb-65c59dfd85-49f86
+Namespace:    default
+Priority:     0
+Node:         node-2/10.9.227.239
+Start Time:   Sat, 23 Jul 2022 21:32:38 +0000
+Labels:       app=webweb
+              pod-template-hash=65c59dfd85
+Annotations:  <none>
+Status:       Running
+IP:           192.168.247.3
+IPs:
+  IP:           192.168.247.3
+Controlled By:  ReplicaSet/webweb-65c59dfd85
+Containers:
+  webweb:
+    Container ID:   containerd://625c5ba54346d44f4504d22157f22c6271b459d57dfb22dc0ec59863004d0426
+    Image:          registry.gitlab.com/alta3research/webby
+    Image ID:       registry.gitlab.com/alta3research/webby@sha256:81218eb064047a9cb458f689d4a437d6090a2099d0a5099990a9c60a915ebd51
+    Port:           8888/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 23 Jul 2022 21:32:39 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-d47d2 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-d47d2:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+
+
+Name:         webweb-65c59dfd85-75vpv
+Namespace:    default
+Priority:     0
+Node:         node-2/10.9.227.239
+Start Time:   Sat, 23 Jul 2022 21:32:38 +0000
+Labels:       app=webweb
+              pod-template-hash=65c59dfd85
+Annotations:  <none>
+Status:       Running
+IP:           192.168.247.4
+IPs:
+  IP:           192.168.247.4
+Controlled By:  ReplicaSet/webweb-65c59dfd85
+Containers:
+  webweb:
+    Container ID:   containerd://6709cccb76a209c5fd5e31d4fb751f43c1d4b052215b35710c9bd9dc8761bd02
+    Image:          registry.gitlab.com/alta3research/webby
+    Image ID:       registry.gitlab.com/alta3research/webby@sha256:81218eb064047a9cb458f689d4a437d6090a2099d0a5099990a9c60a915ebd51
+    Port:           8888/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 23 Jul 2022 21:32:40 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-c7rff (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-c7rff:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+
+
+Name:         webweb-65c59dfd85-xpq4z
+Namespace:    default
+Priority:     0
+Node:         node-1/10.14.182.253
+Start Time:   Sat, 23 Jul 2022 21:32:38 +0000
+Labels:       app=webweb
+              pod-template-hash=65c59dfd85
+Annotations:  <none>
+Status:       Running
+IP:           192.168.84.130
+IPs:
+  IP:           192.168.84.130
+Controlled By:  ReplicaSet/webweb-65c59dfd85
+Containers:
+  webweb:
+    Container ID:   containerd://71f3c67338dc45b309c6692e2695b91839d545a84961ad814259a6f9611b428c
+    Image:          registry.gitlab.com/alta3research/webby
+    Image ID:       registry.gitlab.com/alta3research/webby@sha256:81218eb064047a9cb458f689d4a437d6090a2099d0a5099990a9c60a915ebd51
+    Port:           8888/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 23 Jul 2022 21:32:43 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-nkfft (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-nkfft:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
