@@ -1,0 +1,982 @@
+Name:                 calico-kube-controllers-659fb845bc-hkx7b
+Namespace:            kube-system
+Priority:             2000000000
+Priority Class Name:  system-cluster-critical
+Node:                 node-2/10.9.227.239
+Start Time:           Sun, 10 Jul 2022 22:39:18 +0000
+Labels:               k8s-app=calico-kube-controllers
+                      pod-template-hash=659fb845bc
+Annotations:          <none>
+Status:               Running
+IP:                   10.9.227.239
+IPs:
+  IP:           10.9.227.239
+Controlled By:  ReplicaSet/calico-kube-controllers-659fb845bc
+Containers:
+  calico-kube-controllers:
+    Container ID:   containerd://5c5668b56f6dae27ea2670b3a2789338817f5962078c25218ac2acf2f7d4267a
+    Image:          docker.io/calico/kube-controllers:v3.22.1
+    Image ID:       docker.io/calico/kube-controllers@sha256:e42a0aba3637d123481cca14fd8314a482616593edf58f9594c9382e50498f9b
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 10 Jul 2022 22:39:30 +0000
+    Ready:          True
+    Restart Count:  0
+    Liveness:       exec [/usr/bin/check-status -l] delay=60s timeout=60s period=30s #success=1 #failure=2
+    Readiness:      exec [/usr/bin/check-status -r] delay=60s timeout=1s period=30s #success=1 #failure=3
+    Environment:
+      ETCD_ENDPOINTS:       <set to the key 'etcd_endpoints' of config map 'calico-config'>  Optional: false
+      ETCD_CA_CERT_FILE:    <set to the key 'etcd_ca' of config map 'calico-config'>         Optional: false
+      ETCD_KEY_FILE:        <set to the key 'etcd_key' of config map 'calico-config'>        Optional: false
+      ETCD_CERT_FILE:       <set to the key 'etcd_cert' of config map 'calico-config'>       Optional: false
+      ENABLED_CONTROLLERS:  policy,namespace,serviceaccount,workloadendpoint,node
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-6dhx4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  etcd-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  calico-etcd-secrets
+    Optional:    false
+  kube-api-access-6dhx4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 CriticalAddonsOnly op=Exists
+                             node-role.kubernetes.io/master:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+
+
+Name:                 calico-node-7cnhv
+Namespace:            kube-system
+Priority:             2000001000
+Priority Class Name:  system-node-critical
+Node:                 node-2/10.9.227.239
+Start Time:           Sun, 10 Jul 2022 22:39:18 +0000
+Labels:               controller-revision-hash=7768799787
+                      k8s-app=calico-node
+                      pod-template-generation=1
+Annotations:          <none>
+Status:               Running
+IP:                   10.9.227.239
+IPs:
+  IP:           10.9.227.239
+Controlled By:  DaemonSet/calico-node
+Init Containers:
+  install-cni:
+    Container ID:  containerd://15bd606d0448605e57aa67858fa894f1b5eab3ea6d914040e4740bca8350423d
+    Image:         docker.io/calico/cni:v3.22.1
+    Image ID:      docker.io/calico/cni@sha256:2219eae79544b098119a06a8bb5608867f9ac00471592a00e2347f3ae4bea687
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /opt/cni/bin/install
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 10 Jul 2022 22:39:26 +0000
+      Finished:     Sun, 10 Jul 2022 22:39:28 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment Variables from:
+      kubernetes-services-endpoint  ConfigMap  Optional: true
+    Environment:
+      CNI_CONF_NAME:       10-calico.conflist
+      CNI_NETWORK_CONFIG:  <set to the key 'cni_network_config' of config map 'calico-config'>  Optional: false
+      ETCD_ENDPOINTS:      <set to the key 'etcd_endpoints' of config map 'calico-config'>      Optional: false
+      CNI_MTU:             <set to the key 'veth_mtu' of config map 'calico-config'>            Optional: false
+      SLEEP:               false
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /host/etc/cni/net.d from cni-net-dir (rw)
+      /host/opt/cni/bin from cni-bin-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zpf2q (ro)
+  flexvol-driver:
+    Container ID:   containerd://23b460b4a51d4923069248836d5173fddb6f6393107a9c5330a6010b23ee38c1
+    Image:          docker.io/calico/pod2daemon-flexvol:v3.22.1
+    Image ID:       docker.io/calico/pod2daemon-flexvol@sha256:35802ba083546a7c5e8b5bf0ee7ffad7f8a468e8c2b3631e7e9647512c94041d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 10 Jul 2022 22:39:32 +0000
+      Finished:     Sun, 10 Jul 2022 22:39:32 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /host/driver from flexvol-driver-host (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zpf2q (ro)
+Containers:
+  calico-node:
+    Container ID:   containerd://3b7c01311a551f88fa1acfb338bad4c633a7ed5715254ef7af03868da15cc8ff
+    Image:          docker.io/calico/node:v3.22.1
+    Image ID:       docker.io/calico/node@sha256:1f8ed83e5264b4206cce7e1def11bca0b3ea7d5f4eb9b0ca0dbfc8cb968ca57e
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 10 Jul 2022 22:39:38 +0000
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:      250m
+    Liveness:   exec [/bin/calico-node -felix-live -bird-live] delay=60s timeout=60s period=30s #success=1 #failure=2
+    Readiness:  exec [/bin/calico-node -felix-ready -bird-ready] delay=60s timeout=60s period=30s #success=1 #failure=3
+    Environment Variables from:
+      kubernetes-services-endpoint  ConfigMap  Optional: true
+    Environment:
+      ETCD_ENDPOINTS:                     <set to the key 'etcd_endpoints' of config map 'calico-config'>  Optional: false
+      ETCD_CA_CERT_FILE:                  <set to the key 'etcd_ca' of config map 'calico-config'>         Optional: false
+      ETCD_KEY_FILE:                      <set to the key 'etcd_key' of config map 'calico-config'>        Optional: false
+      ETCD_CERT_FILE:                     <set to the key 'etcd_cert' of config map 'calico-config'>       Optional: false
+      CALICO_K8S_NODE_REF:                 (v1:spec.nodeName)
+      CALICO_NETWORKING_BACKEND:          <set to the key 'calico_backend' of config map 'calico-config'>  Optional: false
+      CLUSTER_TYPE:                       k8s,bgp
+      IP:                                 autodetect
+      IP_AUTODETECTION_METHOD:            can-reach=8.8.8.8
+      CALICO_IPV4POOL_IPIP:               Always
+      CALICO_IPV4POOL_VXLAN:              Never
+      FELIX_IPINIPMTU:                    <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      FELIX_VXLANMTU:                     <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      FELIX_WIREGUARDMTU:                 <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      CALICO_IPV4POOL_CIDR:               192.168.0.0/16
+      CALICO_DISABLE_FILE_LOGGING:        true
+      FELIX_DEFAULTENDPOINTTOHOSTACTION:  ACCEPT
+      FELIX_IPV6SUPPORT:                  false
+      FELIX_HEALTHENABLED:                true
+      WAIT_FOR_DATASTORE:                 true
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /host/etc/cni/net.d from cni-net-dir (rw)
+      /lib/modules from lib-modules (ro)
+      /run/xtables.lock from xtables-lock (rw)
+      /sys/fs/ from sysfs (rw)
+      /var/lib/calico from var-lib-calico (rw)
+      /var/log/calico/cni from cni-log-dir (ro)
+      /var/run/calico from var-run-calico (rw)
+      /var/run/nodeagent from policysync (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zpf2q (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  lib-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /lib/modules
+    HostPathType:  
+  var-run-calico:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/calico
+    HostPathType:  
+  var-lib-calico:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/calico
+    HostPathType:  
+  xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+  sysfs:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys/fs/
+    HostPathType:  DirectoryOrCreate
+  cni-bin-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  
+  cni-net-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/cni/net.d
+    HostPathType:  
+  cni-log-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log/calico/cni
+    HostPathType:  
+  etcd-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  calico-etcd-secrets
+    Optional:    false
+  policysync:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/nodeagent
+    HostPathType:  DirectoryOrCreate
+  flexvol-driver-host:
+    Type:          HostPath (bare host directory volume)
+    Path:          /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+    HostPathType:  DirectoryOrCreate
+  kube-api-access-zpf2q:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 :NoSchedule op=Exists
+                             :NoExecute op=Exists
+                             CriticalAddonsOnly op=Exists
+                             node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/network-unavailable:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:                      <none>
+
+
+Name:                 calico-node-jzmm4
+Namespace:            kube-system
+Priority:             2000001000
+Priority Class Name:  system-node-critical
+Node:                 node-1/10.14.182.253
+Start Time:           Sun, 10 Jul 2022 22:39:18 +0000
+Labels:               controller-revision-hash=7768799787
+                      k8s-app=calico-node
+                      pod-template-generation=1
+Annotations:          <none>
+Status:               Running
+IP:                   10.14.182.253
+IPs:
+  IP:           10.14.182.253
+Controlled By:  DaemonSet/calico-node
+Init Containers:
+  install-cni:
+    Container ID:  containerd://d717d46f2d6fa3a0a081c08c230626d51545f9a5faebc77c578ab8f3757c467d
+    Image:         docker.io/calico/cni:v3.22.1
+    Image ID:      docker.io/calico/cni@sha256:2219eae79544b098119a06a8bb5608867f9ac00471592a00e2347f3ae4bea687
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /opt/cni/bin/install
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 10 Jul 2022 22:39:25 +0000
+      Finished:     Sun, 10 Jul 2022 22:39:27 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment Variables from:
+      kubernetes-services-endpoint  ConfigMap  Optional: true
+    Environment:
+      CNI_CONF_NAME:       10-calico.conflist
+      CNI_NETWORK_CONFIG:  <set to the key 'cni_network_config' of config map 'calico-config'>  Optional: false
+      ETCD_ENDPOINTS:      <set to the key 'etcd_endpoints' of config map 'calico-config'>      Optional: false
+      CNI_MTU:             <set to the key 'veth_mtu' of config map 'calico-config'>            Optional: false
+      SLEEP:               false
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /host/etc/cni/net.d from cni-net-dir (rw)
+      /host/opt/cni/bin from cni-bin-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ffd5x (ro)
+  flexvol-driver:
+    Container ID:   containerd://6fd39a6957308b3f415184a6a090e41ad3a0cec178506129d26b009871dd20e8
+    Image:          docker.io/calico/pod2daemon-flexvol:v3.22.1
+    Image ID:       docker.io/calico/pod2daemon-flexvol@sha256:35802ba083546a7c5e8b5bf0ee7ffad7f8a468e8c2b3631e7e9647512c94041d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 10 Jul 2022 22:39:29 +0000
+      Finished:     Sun, 10 Jul 2022 22:39:29 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /host/driver from flexvol-driver-host (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ffd5x (ro)
+Containers:
+  calico-node:
+    Container ID:   containerd://b77fe4b7d29d38383f902ee5ca1915b6498790f7221509cf265a332ccc848962
+    Image:          docker.io/calico/node:v3.22.1
+    Image ID:       docker.io/calico/node@sha256:1f8ed83e5264b4206cce7e1def11bca0b3ea7d5f4eb9b0ca0dbfc8cb968ca57e
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 10 Jul 2022 22:39:35 +0000
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:      250m
+    Liveness:   exec [/bin/calico-node -felix-live -bird-live] delay=60s timeout=60s period=30s #success=1 #failure=2
+    Readiness:  exec [/bin/calico-node -felix-ready -bird-ready] delay=60s timeout=60s period=30s #success=1 #failure=3
+    Environment Variables from:
+      kubernetes-services-endpoint  ConfigMap  Optional: true
+    Environment:
+      ETCD_ENDPOINTS:                     <set to the key 'etcd_endpoints' of config map 'calico-config'>  Optional: false
+      ETCD_CA_CERT_FILE:                  <set to the key 'etcd_ca' of config map 'calico-config'>         Optional: false
+      ETCD_KEY_FILE:                      <set to the key 'etcd_key' of config map 'calico-config'>        Optional: false
+      ETCD_CERT_FILE:                     <set to the key 'etcd_cert' of config map 'calico-config'>       Optional: false
+      CALICO_K8S_NODE_REF:                 (v1:spec.nodeName)
+      CALICO_NETWORKING_BACKEND:          <set to the key 'calico_backend' of config map 'calico-config'>  Optional: false
+      CLUSTER_TYPE:                       k8s,bgp
+      IP:                                 autodetect
+      IP_AUTODETECTION_METHOD:            can-reach=8.8.8.8
+      CALICO_IPV4POOL_IPIP:               Always
+      CALICO_IPV4POOL_VXLAN:              Never
+      FELIX_IPINIPMTU:                    <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      FELIX_VXLANMTU:                     <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      FELIX_WIREGUARDMTU:                 <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      CALICO_IPV4POOL_CIDR:               192.168.0.0/16
+      CALICO_DISABLE_FILE_LOGGING:        true
+      FELIX_DEFAULTENDPOINTTOHOSTACTION:  ACCEPT
+      FELIX_IPV6SUPPORT:                  false
+      FELIX_HEALTHENABLED:                true
+      WAIT_FOR_DATASTORE:                 true
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /host/etc/cni/net.d from cni-net-dir (rw)
+      /lib/modules from lib-modules (ro)
+      /run/xtables.lock from xtables-lock (rw)
+      /sys/fs/ from sysfs (rw)
+      /var/lib/calico from var-lib-calico (rw)
+      /var/log/calico/cni from cni-log-dir (ro)
+      /var/run/calico from var-run-calico (rw)
+      /var/run/nodeagent from policysync (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ffd5x (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  lib-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /lib/modules
+    HostPathType:  
+  var-run-calico:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/calico
+    HostPathType:  
+  var-lib-calico:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/calico
+    HostPathType:  
+  xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+  sysfs:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys/fs/
+    HostPathType:  DirectoryOrCreate
+  cni-bin-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  
+  cni-net-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/cni/net.d
+    HostPathType:  
+  cni-log-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log/calico/cni
+    HostPathType:  
+  etcd-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  calico-etcd-secrets
+    Optional:    false
+  policysync:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/nodeagent
+    HostPathType:  DirectoryOrCreate
+  flexvol-driver-host:
+    Type:          HostPath (bare host directory volume)
+    Path:          /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+    HostPathType:  DirectoryOrCreate
+  kube-api-access-ffd5x:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 :NoSchedule op=Exists
+                             :NoExecute op=Exists
+                             CriticalAddonsOnly op=Exists
+                             node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/network-unavailable:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:                      <none>
+
+
+Name:                 kube-dns-688c69f57d-2szjw
+Namespace:            kube-system
+Priority:             2000000000
+Priority Class Name:  system-cluster-critical
+Node:                 node-1/10.14.182.253
+Start Time:           Sun, 10 Jul 2022 22:39:35 +0000
+Labels:               k8s-app=kube-dns
+                      pod-template-hash=688c69f57d
+Annotations:          prometheus.io/port: 10054
+                      prometheus.io/scrape: true
+                      seccomp.security.alpha.kubernetes.io/pod: runtime/default
+Status:               Running
+IP:                   192.168.84.129
+IPs:
+  IP:           192.168.84.129
+Controlled By:  ReplicaSet/kube-dns-688c69f57d
+Containers:
+  kubedns:
+    Container ID:  containerd://7884dc693ba02c27a8cc51ed41ef572aa10f1270f6ef273ca2c5ba575463cace
+    Image:         k8s.gcr.io/dns/k8s-dns-kube-dns:1.21.1
+    Image ID:      k8s.gcr.io/dns/k8s-dns-kube-dns@sha256:ce69e9cc297b29ecd58aa16628cbcce7544adcbce5defbc9439b6765e1f78dd8
+    Ports:         10053/UDP, 10053/TCP, 10055/TCP
+    Host Ports:    0/UDP, 0/TCP, 0/TCP
+    Args:
+      --domain=cluster.local.
+      --dns-port=10053
+      --config-dir=/kube-dns-config
+      --v=2
+    State:          Running
+      Started:      Sun, 10 Jul 2022 22:39:39 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      memory:  170Mi
+    Requests:
+      cpu:      100m
+      memory:   70Mi
+    Liveness:   http-get http://:10054/healthcheck/kubedns delay=30s timeout=5s period=10s #success=1 #failure=2
+    Readiness:  http-get http://:8081/readiness delay=3s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      PROMETHEUS_PORT:  10055
+    Mounts:
+      /kube-dns-config from kube-dns-config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5btj4 (ro)
+  dnsmasq:
+    Container ID:  containerd://1d572d1256593d66a993604a2b14add032787852d634f1bba7971716339e28ef
+    Image:         k8s.gcr.io/dns/k8s-dns-dnsmasq-nanny:1.21.1
+    Image ID:      k8s.gcr.io/dns/k8s-dns-dnsmasq-nanny@sha256:c0f0c6035e76b2f0b15c65206c7481ea4e1aca69104a44257f7057c8a04dda05
+    Ports:         53/UDP, 53/TCP
+    Host Ports:    0/UDP, 0/TCP
+    Args:
+      -v=2
+      -logtostderr
+      -configDir=/etc/k8s/dns/dnsmasq-nanny
+      -restartDnsmasq=true
+      --
+      -k
+      --cache-size=1000
+      --no-negcache
+      --dns-loop-detect
+      --log-facility=-
+      --server=/cluster.local/127.0.0.1#10053
+      --server=/in-addr.arpa/127.0.0.1#10053
+      --server=/ip6.arpa/127.0.0.1#10053
+    State:          Running
+      Started:      Sun, 10 Jul 2022 22:39:42 +0000
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        150m
+      memory:     20Mi
+    Liveness:     http-get http://:10054/healthcheck/dnsmasq delay=30s timeout=5s period=10s #success=1 #failure=2
+    Environment:  <none>
+    Mounts:
+      /etc/k8s/dns/dnsmasq-nanny from kube-dns-config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5btj4 (ro)
+  sidecar:
+    Container ID:  containerd://c431135a5646acf2c2ae91a2aa7792d7ee7cf9877ac5ef96f1c82756554af45c
+    Image:         k8s.gcr.io/dns/k8s-dns-sidecar:1.21.1
+    Image ID:      k8s.gcr.io/dns/k8s-dns-sidecar@sha256:03432788f317b395edd34892d6dd1bf0c15a7557412faf75249e6d0568297a6f
+    Port:          10054/TCP
+    Host Port:     0/TCP
+    Args:
+      --v=2
+      --logtostderr
+      --probe=kubedns,127.0.0.1:10053,kubernetes.default.svc.cluster.local,5,SRV
+      --probe=dnsmasq,127.0.0.1:53,kubernetes.default.svc.cluster.local,5,SRV
+    State:          Running
+      Started:      Sun, 10 Jul 2022 22:39:44 +0000
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        10m
+      memory:     20Mi
+    Liveness:     http-get http://:10054/metrics delay=30s timeout=5s period=10s #success=1 #failure=2
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5btj4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-dns-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kube-dns
+    Optional:  true
+  kube-api-access-5btj4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 CriticalAddonsOnly op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+
+
+Name:              kubernetes
+Namespace:         default
+Labels:            component=apiserver
+                   provider=kubernetes
+Annotations:       <none>
+Selector:          <none>
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                172.16.3.1
+IPs:               172.16.3.1
+Port:              https  443/TCP
+TargetPort:        6443/TCP
+Endpoints:         10.8.161.61:6443
+Session Affinity:  None
+Events:            <none>
+
+
+Name:              kube-dns
+Namespace:         kube-system
+Labels:            addonmanager.kubernetes.io/mode=Reconcile
+                   k8s-app=kube-dns
+                   kubernetes.io/cluster-service=true
+                   kubernetes.io/name=KubeDNS
+Annotations:       <none>
+Selector:          k8s-app=kube-dns
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                172.16.3.10
+IPs:               172.16.3.10
+Port:              dns  53/UDP
+TargetPort:        53/UDP
+Endpoints:         192.168.84.129:53
+Port:              dns-tcp  53/TCP
+TargetPort:        53/TCP
+Endpoints:         192.168.84.129:53
+Session Affinity:  None
+Events:            <none>
+
+
+Name:           calico-node
+Selector:       k8s-app=calico-node
+Node-Selector:  kubernetes.io/os=linux
+Labels:         k8s-app=calico-node
+Annotations:    deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 2
+Current Number of Nodes Scheduled: 2
+Number of Nodes Scheduled with Up-to-date Pods: 2
+Number of Nodes Scheduled with Available Pods: 2
+Number of Nodes Misscheduled: 0
+Pods Status:  2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           k8s-app=calico-node
+  Service Account:  calico-node
+  Init Containers:
+   install-cni:
+    Image:      docker.io/calico/cni:v3.22.1
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      /opt/cni/bin/install
+    Environment Variables from:
+      kubernetes-services-endpoint  ConfigMap  Optional: true
+    Environment:
+      CNI_CONF_NAME:       10-calico.conflist
+      CNI_NETWORK_CONFIG:  <set to the key 'cni_network_config' of config map 'calico-config'>  Optional: false
+      ETCD_ENDPOINTS:      <set to the key 'etcd_endpoints' of config map 'calico-config'>      Optional: false
+      CNI_MTU:             <set to the key 'veth_mtu' of config map 'calico-config'>            Optional: false
+      SLEEP:               false
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /host/etc/cni/net.d from cni-net-dir (rw)
+      /host/opt/cni/bin from cni-bin-dir (rw)
+   flexvol-driver:
+    Image:        docker.io/calico/pod2daemon-flexvol:v3.22.1
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:
+      /host/driver from flexvol-driver-host (rw)
+  Containers:
+   calico-node:
+    Image:      docker.io/calico/node:v3.22.1
+    Port:       <none>
+    Host Port:  <none>
+    Requests:
+      cpu:      250m
+    Liveness:   exec [/bin/calico-node -felix-live -bird-live] delay=60s timeout=60s period=30s #success=1 #failure=2
+    Readiness:  exec [/bin/calico-node -felix-ready -bird-ready] delay=60s timeout=60s period=30s #success=1 #failure=3
+    Environment Variables from:
+      kubernetes-services-endpoint  ConfigMap  Optional: true
+    Environment:
+      ETCD_ENDPOINTS:                     <set to the key 'etcd_endpoints' of config map 'calico-config'>  Optional: false
+      ETCD_CA_CERT_FILE:                  <set to the key 'etcd_ca' of config map 'calico-config'>         Optional: false
+      ETCD_KEY_FILE:                      <set to the key 'etcd_key' of config map 'calico-config'>        Optional: false
+      ETCD_CERT_FILE:                     <set to the key 'etcd_cert' of config map 'calico-config'>       Optional: false
+      CALICO_K8S_NODE_REF:                 (v1:spec.nodeName)
+      CALICO_NETWORKING_BACKEND:          <set to the key 'calico_backend' of config map 'calico-config'>  Optional: false
+      CLUSTER_TYPE:                       k8s,bgp
+      IP:                                 autodetect
+      IP_AUTODETECTION_METHOD:            can-reach=8.8.8.8
+      CALICO_IPV4POOL_IPIP:               Always
+      CALICO_IPV4POOL_VXLAN:              Never
+      FELIX_IPINIPMTU:                    <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      FELIX_VXLANMTU:                     <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      FELIX_WIREGUARDMTU:                 <set to the key 'veth_mtu' of config map 'calico-config'>  Optional: false
+      CALICO_IPV4POOL_CIDR:               192.168.0.0/16
+      CALICO_DISABLE_FILE_LOGGING:        true
+      FELIX_DEFAULTENDPOINTTOHOSTACTION:  ACCEPT
+      FELIX_IPV6SUPPORT:                  false
+      FELIX_HEALTHENABLED:                true
+      WAIT_FOR_DATASTORE:                 true
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+      /host/etc/cni/net.d from cni-net-dir (rw)
+      /lib/modules from lib-modules (ro)
+      /run/xtables.lock from xtables-lock (rw)
+      /sys/fs/ from sysfs (rw)
+      /var/lib/calico from var-lib-calico (rw)
+      /var/log/calico/cni from cni-log-dir (ro)
+      /var/run/calico from var-run-calico (rw)
+      /var/run/nodeagent from policysync (rw)
+  Volumes:
+   lib-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /lib/modules
+    HostPathType:  
+   var-run-calico:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/calico
+    HostPathType:  
+   var-lib-calico:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/calico
+    HostPathType:  
+   xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+   sysfs:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys/fs/
+    HostPathType:  DirectoryOrCreate
+   cni-bin-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  
+   cni-net-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/cni/net.d
+    HostPathType:  
+   cni-log-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log/calico/cni
+    HostPathType:  
+   etcd-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  calico-etcd-secrets
+    Optional:    false
+   policysync:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/nodeagent
+    HostPathType:  DirectoryOrCreate
+   flexvol-driver-host:
+    Type:               HostPath (bare host directory volume)
+    Path:               /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+    HostPathType:       DirectoryOrCreate
+  Priority Class Name:  system-node-critical
+Events:                 <none>
+
+
+Name:               calico-kube-controllers
+Namespace:          kube-system
+CreationTimestamp:  Sun, 10 Jul 2022 22:39:18 +0000
+Labels:             k8s-app=calico-kube-controllers
+Annotations:        deployment.kubernetes.io/revision: 1
+Selector:           k8s-app=calico-kube-controllers
+Replicas:           1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:       Recreate
+MinReadySeconds:    0
+Pod Template:
+  Labels:           k8s-app=calico-kube-controllers
+  Service Account:  calico-kube-controllers
+  Containers:
+   calico-kube-controllers:
+    Image:      docker.io/calico/kube-controllers:v3.22.1
+    Port:       <none>
+    Host Port:  <none>
+    Liveness:   exec [/usr/bin/check-status -l] delay=60s timeout=60s period=30s #success=1 #failure=2
+    Readiness:  exec [/usr/bin/check-status -r] delay=60s timeout=1s period=30s #success=1 #failure=3
+    Environment:
+      ETCD_ENDPOINTS:       <set to the key 'etcd_endpoints' of config map 'calico-config'>  Optional: false
+      ETCD_CA_CERT_FILE:    <set to the key 'etcd_ca' of config map 'calico-config'>         Optional: false
+      ETCD_KEY_FILE:        <set to the key 'etcd_key' of config map 'calico-config'>        Optional: false
+      ETCD_CERT_FILE:       <set to the key 'etcd_cert' of config map 'calico-config'>       Optional: false
+      ENABLED_CONTROLLERS:  policy,namespace,serviceaccount,workloadendpoint,node
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+  Volumes:
+   etcd-certs:
+    Type:               Secret (a volume populated by a Secret)
+    SecretName:         calico-etcd-secrets
+    Optional:           false
+  Priority Class Name:  system-cluster-critical
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   calico-kube-controllers-659fb845bc (1/1 replicas created)
+Events:          <none>
+
+
+Name:                   kube-dns
+Namespace:              kube-system
+CreationTimestamp:      Sun, 10 Jul 2022 22:39:35 +0000
+Labels:                 addonmanager.kubernetes.io/mode=Reconcile
+                        k8s-app=kube-dns
+                        kubernetes.io/cluster-service=true
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               k8s-app=kube-dns
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  0 max unavailable, 10% max surge
+Pod Template:
+  Labels:           k8s-app=kube-dns
+  Annotations:      prometheus.io/port: 10054
+                    prometheus.io/scrape: true
+  Service Account:  kube-dns
+  Containers:
+   kubedns:
+    Image:       k8s.gcr.io/dns/k8s-dns-kube-dns:1.21.1
+    Ports:       10053/UDP, 10053/TCP, 10055/TCP
+    Host Ports:  0/UDP, 0/TCP, 0/TCP
+    Args:
+      --domain=cluster.local.
+      --dns-port=10053
+      --config-dir=/kube-dns-config
+      --v=2
+    Limits:
+      memory:  170Mi
+    Requests:
+      cpu:      100m
+      memory:   70Mi
+    Liveness:   http-get http://:10054/healthcheck/kubedns delay=30s timeout=5s period=10s #success=1 #failure=2
+    Readiness:  http-get http://:8081/readiness delay=3s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      PROMETHEUS_PORT:  10055
+    Mounts:
+      /kube-dns-config from kube-dns-config (rw)
+   dnsmasq:
+    Image:       k8s.gcr.io/dns/k8s-dns-dnsmasq-nanny:1.21.1
+    Ports:       53/UDP, 53/TCP
+    Host Ports:  0/UDP, 0/TCP
+    Args:
+      -v=2
+      -logtostderr
+      -configDir=/etc/k8s/dns/dnsmasq-nanny
+      -restartDnsmasq=true
+      --
+      -k
+      --cache-size=1000
+      --no-negcache
+      --dns-loop-detect
+      --log-facility=-
+      --server=/cluster.local/127.0.0.1#10053
+      --server=/in-addr.arpa/127.0.0.1#10053
+      --server=/ip6.arpa/127.0.0.1#10053
+    Requests:
+      cpu:        150m
+      memory:     20Mi
+    Liveness:     http-get http://:10054/healthcheck/dnsmasq delay=30s timeout=5s period=10s #success=1 #failure=2
+    Environment:  <none>
+    Mounts:
+      /etc/k8s/dns/dnsmasq-nanny from kube-dns-config (rw)
+   sidecar:
+    Image:      k8s.gcr.io/dns/k8s-dns-sidecar:1.21.1
+    Port:       10054/TCP
+    Host Port:  0/TCP
+    Args:
+      --v=2
+      --logtostderr
+      --probe=kubedns,127.0.0.1:10053,kubernetes.default.svc.cluster.local,5,SRV
+      --probe=dnsmasq,127.0.0.1:53,kubernetes.default.svc.cluster.local,5,SRV
+    Requests:
+      cpu:        10m
+      memory:     20Mi
+    Liveness:     http-get http://:10054/metrics delay=30s timeout=5s period=10s #success=1 #failure=2
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:
+   kube-dns-config:
+    Type:               ConfigMap (a volume populated by a ConfigMap)
+    Name:               kube-dns
+    Optional:           true
+  Priority Class Name:  system-cluster-critical
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kube-dns-688c69f57d (1/1 replicas created)
+Events:          <none>
+
+
+Name:           calico-kube-controllers-659fb845bc
+Namespace:      kube-system
+Selector:       k8s-app=calico-kube-controllers,pod-template-hash=659fb845bc
+Labels:         k8s-app=calico-kube-controllers
+                pod-template-hash=659fb845bc
+Annotations:    deployment.kubernetes.io/desired-replicas: 1
+                deployment.kubernetes.io/max-replicas: 1
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/calico-kube-controllers
+Replicas:       1 current / 1 desired
+Pods Status:    1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           k8s-app=calico-kube-controllers
+                    pod-template-hash=659fb845bc
+  Service Account:  calico-kube-controllers
+  Containers:
+   calico-kube-controllers:
+    Image:      docker.io/calico/kube-controllers:v3.22.1
+    Port:       <none>
+    Host Port:  <none>
+    Liveness:   exec [/usr/bin/check-status -l] delay=60s timeout=60s period=30s #success=1 #failure=2
+    Readiness:  exec [/usr/bin/check-status -r] delay=60s timeout=1s period=30s #success=1 #failure=3
+    Environment:
+      ETCD_ENDPOINTS:       <set to the key 'etcd_endpoints' of config map 'calico-config'>  Optional: false
+      ETCD_CA_CERT_FILE:    <set to the key 'etcd_ca' of config map 'calico-config'>         Optional: false
+      ETCD_KEY_FILE:        <set to the key 'etcd_key' of config map 'calico-config'>        Optional: false
+      ETCD_CERT_FILE:       <set to the key 'etcd_cert' of config map 'calico-config'>       Optional: false
+      ENABLED_CONTROLLERS:  policy,namespace,serviceaccount,workloadendpoint,node
+    Mounts:
+      /calico-secrets from etcd-certs (rw)
+  Volumes:
+   etcd-certs:
+    Type:               Secret (a volume populated by a Secret)
+    SecretName:         calico-etcd-secrets
+    Optional:           false
+  Priority Class Name:  system-cluster-critical
+Events:                 <none>
+
+
+Name:           kube-dns-688c69f57d
+Namespace:      kube-system
+Selector:       k8s-app=kube-dns,pod-template-hash=688c69f57d
+Labels:         k8s-app=kube-dns
+                pod-template-hash=688c69f57d
+Annotations:    deployment.kubernetes.io/desired-replicas: 1
+                deployment.kubernetes.io/max-replicas: 2
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/kube-dns
+Replicas:       1 current / 1 desired
+Pods Status:    1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           k8s-app=kube-dns
+                    pod-template-hash=688c69f57d
+  Annotations:      prometheus.io/port: 10054
+                    prometheus.io/scrape: true
+  Service Account:  kube-dns
+  Containers:
+   kubedns:
+    Image:       k8s.gcr.io/dns/k8s-dns-kube-dns:1.21.1
+    Ports:       10053/UDP, 10053/TCP, 10055/TCP
+    Host Ports:  0/UDP, 0/TCP, 0/TCP
+    Args:
+      --domain=cluster.local.
+      --dns-port=10053
+      --config-dir=/kube-dns-config
+      --v=2
+    Limits:
+      memory:  170Mi
+    Requests:
+      cpu:      100m
+      memory:   70Mi
+    Liveness:   http-get http://:10054/healthcheck/kubedns delay=30s timeout=5s period=10s #success=1 #failure=2
+    Readiness:  http-get http://:8081/readiness delay=3s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      PROMETHEUS_PORT:  10055
+    Mounts:
+      /kube-dns-config from kube-dns-config (rw)
+   dnsmasq:
+    Image:       k8s.gcr.io/dns/k8s-dns-dnsmasq-nanny:1.21.1
+    Ports:       53/UDP, 53/TCP
+    Host Ports:  0/UDP, 0/TCP
+    Args:
+      -v=2
+      -logtostderr
+      -configDir=/etc/k8s/dns/dnsmasq-nanny
+      -restartDnsmasq=true
+      --
+      -k
+      --cache-size=1000
+      --no-negcache
+      --dns-loop-detect
+      --log-facility=-
+      --server=/cluster.local/127.0.0.1#10053
+      --server=/in-addr.arpa/127.0.0.1#10053
+      --server=/ip6.arpa/127.0.0.1#10053
+    Requests:
+      cpu:        150m
+      memory:     20Mi
+    Liveness:     http-get http://:10054/healthcheck/dnsmasq delay=30s timeout=5s period=10s #success=1 #failure=2
+    Environment:  <none>
+    Mounts:
+      /etc/k8s/dns/dnsmasq-nanny from kube-dns-config (rw)
+   sidecar:
+    Image:      k8s.gcr.io/dns/k8s-dns-sidecar:1.21.1
+    Port:       10054/TCP
+    Host Port:  0/TCP
+    Args:
+      --v=2
+      --logtostderr
+      --probe=kubedns,127.0.0.1:10053,kubernetes.default.svc.cluster.local,5,SRV
+      --probe=dnsmasq,127.0.0.1:53,kubernetes.default.svc.cluster.local,5,SRV
+    Requests:
+      cpu:        10m
+      memory:     20Mi
+    Liveness:     http-get http://:10054/metrics delay=30s timeout=5s period=10s #success=1 #failure=2
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:
+   kube-dns-config:
+    Type:               ConfigMap (a volume populated by a ConfigMap)
+    Name:               kube-dns
+    Optional:           true
+  Priority Class Name:  system-cluster-critical
+Events:                 <none>
