@@ -1,12 +1,12 @@
-apiVersion: # the api version to use
-kind: # for example: Pod
+apiVersion: v1
+kind: Pod
 metadata:
-  name: webservice01
+  name: myweb01
 spec:
   containers:
-  - name: # name of container
-    image: # name of the image to use
+  - name: myweb01-web
+    image: registry.gitlab.com/alta3research/webby
     ports:
-    - name: # name for port mapping
-      containerPort: # we mapped this with the port-forward command
-      protocol: # TCP or UDP
+    - name: web
+      containerPort: 8888
+      protocol: TCP
