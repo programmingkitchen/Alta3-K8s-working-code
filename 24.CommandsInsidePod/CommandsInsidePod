@@ -1,0 +1,46 @@
+# Performing Commands inside a Pod
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/24.CommandsInsidePod$ which wget
+/usr/bin/wget
+student@bchd:~/my-repos/Alta3-K8s-working-code/24.CommandsInsidePod$ wget https://raw.githubusercontent.com/alta3/kubernetes-the-alta3-way/main/labs/yaml/nginx-pod.yaml
+--2022-07-24 18:47:48--  https://raw.githubusercontent.com/alta3/kubernetes-the-alta3-way/main/labs/yaml/nginx-pod.yaml
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 169 [text/plain]
+Saving to: ‘nginx-pod.yaml’
+
+nginx-pod.yaml                    100%[==========================================================>]     169  --.-KB/s    in 0s      
+
+2022-07-24 18:47:48 (4.31 MB/s) - ‘nginx-pod.yaml’ saved [169/169]
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/24.CommandsInsidePod$ pwd
+/home/student/my-repos/Alta3-K8s-working-code/24.CommandsInsidePod
+student@bchd:~/my-repos/Alta3-K8s-working-code/24.CommandsInsidePod$ ls
+CommandsInsidePod  nginx-pod.yaml
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code/24.CommandsInsidePod$ cat nginx-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    what: what
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.18.0
+    ports:
+    - containerPort: 80
+
+
+kubectl create -f https://raw.githubusercontent.com/alta3/kubernetes-the-alta3-way/main/labs/yaml/nginx-pod.yaml
+
+
+
+
+
+
+
