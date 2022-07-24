@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx2   # update this value
+spec:
+  containers:
+  - name: nginx2
+    image: nginx:1.18.0
+    ports:
+    - containerPort: 80
+
