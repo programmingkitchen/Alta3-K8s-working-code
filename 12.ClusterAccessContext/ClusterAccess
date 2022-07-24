@@ -97,7 +97,9 @@ lrwxrwxrwx 1 student student   40 Jul 10 22:36 registry-web.crt -> /home/student
 
 
 
-You are running the kubernetes-the-alta3-way context, which means that you are the user admin. This allows you full access to the cluster, as well as full rights to create, update, and delete resources.
+You are running the kubernetes-the-alta3-way context, which means 
+that you are the user admin. This allows you full access to the cluster, 
+as well as full rights to create, update, and delete resources.
 
 
 student@bchd:~/.kube$ cat config
@@ -152,7 +154,9 @@ users: null
 student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ 
 
 
-The display shows that the dev-context is lacking some definition. The missing values include, clusters, contexts[0].context.cluster, users, and contexts[0].context.user. In short, we're missing a username (who) and cluster (where) definitions.
+The display shows that the dev-context is lacking some definition. The missing values include, 
+clusters, contexts[0].context.cluster, users, and contexts[0].context.user. 
+In short, we're missing a username (who) and cluster (where) definitions.
 
 
 student@bchd:~/my-repos/Alta3-K8s-working-code/12.ClusterAccessContext$ kubectl config set-context dev-context --namespace=dev --user=admin --cluster=kubernetes-the-alta3-way
