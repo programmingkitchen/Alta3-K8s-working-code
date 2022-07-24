@@ -6,9 +6,7 @@ These Pod manifests are what declaratively define all of the information necessa
 to launch a Pod. The kubectl command is used to create many different 
 Kubernetes resource objects, not just Pods.
 
-
-
-
+```
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$ ls
 CreateConfigurePods.md
 
@@ -26,6 +24,8 @@ student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods$
 student@bchd:~/my-repos/Alta3-K8s-working-code/18.CreateConfigurePods/create-and-configure-basic-pods$ cat setup.sh 
 #!/bin/bash
 set -euo pipefail
+
+```
 
 **This also starts a log**
 
