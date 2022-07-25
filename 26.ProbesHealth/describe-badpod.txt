@@ -1,0 +1,59 @@
+Name:         badpod
+Namespace:    default
+Priority:     0
+Node:         node-2/10.9.227.239
+Start Time:   Mon, 25 Jul 2022 01:03:43 +0000
+Labels:       <none>
+Annotations:  <none>
+Status:       Running
+IP:           192.168.247.21
+IPs:
+  IP:  192.168.247.21
+Containers:
+  sise:
+    Container ID:   containerd://fd0ba334413b5b1a923ca4a0ccad26360211d9e64c19ebc04d05664e624f936b
+    Image:          mhausenblas/simpleservice:0.5.0
+    Image ID:       docker.io/mhausenblas/simpleservice@sha256:33f589ea71cc8a0e37a2f4b17c2e3c207a69c2df525aa62ef5451b75638fd966
+    Port:           9876/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 25 Jul 2022 01:06:00 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    137
+      Started:      Mon, 25 Jul 2022 01:05:15 +0000
+      Finished:     Mon, 25 Jul 2022 01:05:59 +0000
+    Ready:          True
+    Restart Count:  3
+    Liveness:       http-get http://:9876/health delay=2s timeout=1s period=5s #success=1 #failure=3
+    Environment:
+      HEALTH_MIN:  2000
+      HEALTH_MAX:  4000
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2sfm6 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-2sfm6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  2m21s                default-scheduler  Successfully assigned default/badpod to node-2
+  Warning  Unhealthy  35s (x9 over 2m15s)  kubelet            Liveness probe failed: Get "http://192.168.247.21:9876/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Normal   Killing    35s (x3 over 2m5s)   kubelet            Container sise failed liveness probe, will be restarted
+  Normal   Pulled     4s (x4 over 2m20s)   kubelet            Container image "mhausenblas/simpleservice:0.5.0" already present on machine
+  Normal   Created    4s (x4 over 2m20s)   kubelet            Created container sise
+  Normal   Started    4s (x4 over 2m20s)   kubelet            Started container sise
