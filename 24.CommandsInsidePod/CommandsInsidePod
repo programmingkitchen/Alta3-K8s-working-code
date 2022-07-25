@@ -39,6 +39,129 @@ spec:
 kubectl create -f https://raw.githubusercontent.com/alta3/kubernetes-the-alta3-way/main/labs/yaml/nginx-pod.yaml
 
 
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl create -f https://raw.githubusercontent.com/alta3/kubernetes-the-alta3-way/main/labs/yaml/nginx-pod.yaml
+pod/nginx created
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          5s
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          5s
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl exec -it nginx -- sh
+# uname -a
+Linux nginx 5.15.0-40-generic #43-Ubuntu SMP Wed Jun 15 12:54:21 UTC 2022 x86_64 GNU/Linux
+# id
+uid=0(root) gid=0(root) groups=0(root)
+# whoami
+root
+# ls /proc/ | head
+1
+29
+30
+39
+40
+acpi
+bootconfig
+buddyinfo
+bus
+cgroups
+# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          20G  6.2G   14G  32% /
+tmpfs            64M     0   64M   0% /dev
+/dev/sda1        20G  6.2G   14G  32% /etc/hosts
+shm              64M     0   64M   0% /dev/shm
+tmpfs           3.8G   12K  3.8G   1% /run/secrets/kubernetes.io/serviceaccount
+tmpfs           2.0G     0  2.0G   0% /proc/acpi
+tmpfs           2.0G     0  2.0G   0% /proc/scsi
+tmpfs           2.0G     0  2.0G   0% /sys/firmware
+# 
+
+
+# cd /usr/share/nginx
+# ls
+html
+# cat html
+cat: html: Is a directory
+# ls -l
+total 4
+drwxr-xr-x 2 root root 4096 Apr 10  2021 html
+# cd html
+# ls
+50x.html  index.html
+# pwd 
+/usr/share/nginx/html
+# cat index.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+# 
+
+This kills the pod
+
+# kill -15 1
+# command terminated with exit code 137
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS      AGE
+kube-system   calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0             14d
+kube-system   calico-node-7cnhv                          1/1     Running   0             14d
+kube-system   calico-node-jzmm4                          1/1     Running   0             14d
+kube-system   kube-dns-688c69f57d-2szjw                  3/3     Running   0             14d
+default       nginx                                      1/1     Running   1 (27s ago)   5m28s
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS      AGE
+kube-system   calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0             14d
+kube-system   calico-node-7cnhv                          1/1     Running   0             14d
+kube-system   calico-node-jzmm4                          1/1     Running   0             14d
+kube-system   kube-dns-688c69f57d-2szjw                  3/3     Running   0             14d
+default       nginx                                      1/1     Running   1 (36s ago)   5m37s
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl delete -f https://raw.githubusercontent.com/alta3/kubernetes-the-alta3-way/main/labs/yaml/nginx-pod.yaml
+pod "nginx" deleted
+student@bchd:~/my-repos/Alta3-K8s-working-code$ kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-659fb845bc-hkx7b   1/1     Running   0          14d
+kube-system   calico-node-7cnhv                          1/1     Running   0          14d
+kube-system   calico-node-jzmm4                          1/1     Running   0          14d
+kube-system   kube-dns-688c69f57d-2szjw                  3/3     Running   0          14d
+student@bchd:~/my-repos/Alta3-K8s-working-code$ 
+
+
+
+
+
+
+
+
 
 
 
